@@ -2618,14 +2618,17 @@ end
 # Edition tags 4/5
 [[patches]]
 [patches.pattern]
-target = 'functions/state_events.lua'
-pattern = 'for i=1, #G.jokers.cards + #G.consumeables.cards do'
-position = 'at'
+target = '=[SMODS _ "src/utils.lua"]'
+pattern = '-- TARGET: add your own CardAreas for joker evaluation'
+position = 'before'
 match_indent = true
 payload = '''
-
-for i=1, #G.jokers.cards + (BUNCOMOD and BUNCOMOD.vars and BUNCOMOD.vars.jokerlike_consumable_editions and #G.consumeables.cards or 0) do
-
+for k, v in ipairs(t) do
+    if v == G.consumeables and (BUNCOMOD and BUNCOMOD.vars and not BUNCOMOD.vars.jokerlike_consumable_editions) then
+        table.remove(t, k)
+        break
+    end
+end
 '''
 
 # Edition tags 5/5
