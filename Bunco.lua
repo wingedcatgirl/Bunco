@@ -781,13 +781,6 @@ SMODS.Tag:take_ownership('double', {
     end,
 })
 
-SMODS.Challenge:take_ownership('c_mad_world_1', {
-    register = function(self)
-        SMODS.Challenge.register(self)
-        table.insert(self.restrictions.banned_other, {id = 'bl_bunc_cadaver', type = 'blind'})
-    end
-})
-
 -- Joker creation setup
 
 SMODS.Atlas({key = 'bunco_jokers', path = 'Jokers/Jokers.png', px = 71, py = 95})
@@ -3118,7 +3111,7 @@ create_joker({ -- Bounty Hunter
         end
     end,
     calculate = function(self, card, context)
-        if context.get_money then
+        if context.get_money and not context.blueprint then
             card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.bonus
         end
         if context.joker_main and card.ability.extra.mult ~= 0 then
@@ -3999,8 +3992,11 @@ create_joker({ -- ROYGBIV
                     end
 
                     if cards and #cards > 0 then
-                        big_juice(card)
-                        cards[math.random(#cards)]:set_edition({polychrome = true}, true)
+                        forced_message('+'..localize{type = 'name_text', key = 'e_polychrome', set = 'Edition'}, card)
+                        for i = 1, #cards do
+                            local other_card = cards[i]
+                            other_card:set_edition({polychrome = true})
+                        end
                     end
                 end
             end
