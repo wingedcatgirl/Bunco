@@ -3522,9 +3522,9 @@ end
 [[patches]]
 [patches.regex]
 target = 'functions/state_events.lua'
-pattern = 'end\n(.*)\}\)\)\n(.*)end\n(.*)end'
+pattern = 'end\n(.*)\}\)\)\n(.*)end\n(?<indent>[\t ]*)(.*)end'
 position = "after"
-match_indent = true
+line_prepend = "$indent"
 payload = '''
 
 if G.hand.crackers_highlighted and #G.hand.crackers_highlighted >= 1 then
