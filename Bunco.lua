@@ -291,6 +291,62 @@ SMODS.Consumable:take_ownership('eris', {
     end
 })
 
+-- Bunco High Contrast
+
+SMODS.Atlas{key = 'cards_alt_hc', path = 'Resprites/EnhancedContrast.png', px = 71, py = 95}
+SMODS.Atlas{key = 'ui_alt_hc', path = 'Resprites/EnhancedUIContrast.png', px = 18, py = 18}
+
+local collabs = {
+    Hearts = {'AU', 'TBoI', 'CL', 'D2'},
+    Diamonds = {'DTD', 'SV', 'EG', 'XR'},
+    Clubs = {'VS', 'STS', 'PC', 'WF'},
+    Spades = {'TW', 'CYP', 'SK', 'DS'},
+}
+
+local bunc_hc_colours = {
+    Hearts = HEX('ee151b'),
+    Diamonds = HEX('e56b10'),
+    Spades = HEX('5d55a6'),
+    Clubs = HEX('197f77')
+}
+
+for i, suit in ipairs({'Hearts', 'Diamonds', 'Clubs', 'Spades'}) do
+    SMODS.DeckSkin.add_palette(SMODS.DeckSkins['default_' .. suit], {
+        key = 'bunc_hc_' .. suit,
+        ranks = {'2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace',},
+        display_ranks = {'King', 'Queen', 'Jack'},
+        atlas = 'bunc_cards_alt_hc',
+        pos_style = 'deck',
+        colour = bunc_hc_colours[suit],
+        suit_icon = {
+            atlas = 'bunc_ui_alt_hc',
+            pos = {x = i - 1, y = 1}
+        },
+        loc_txt = {
+            ['en-us'] = 'Bunco High Contrast'
+        }
+    })
+
+    for _, collab in pairs(collabs[suit]) do
+        SMODS.Atlas{key = 'collab_'.. collab ..'_alt_hc', path = 'Resprites/collabs/collab_' .. collab .. '_EnhancedContrast.png', px = 71, py = 95}
+        SMODS.DeckSkin.add_palette(SMODS.DeckSkins['collab_' .. collab], {
+            key = 'bunc_hc_' .. suit,
+            ranks = {'Jack', 'Queen', 'King',},
+            display_ranks = {'King', 'Queen', 'Jack'},
+            atlas = 'bunc_collab_'.. collab ..'_alt_hc',
+            pos_style = 'collab',
+            colour = bunc_hc_colours[suit],
+            suit_icon = {
+                atlas = 'bunc_ui_alt_hc',
+                pos = {x = i - 1, y = 1}
+            },
+            loc_txt = {
+                ['en-us'] = 'Bunco High Contrast'
+            }
+        })
+    end
+end
+
 -- Fixed sprites
 
 SMODS.Atlas({key = 'bunco_resprites_jokers', path = 'Resprites/Jokers.png', px = 71, py = 95})
@@ -300,21 +356,21 @@ SMODS.Shader({key = 'pinch', path = 'pinch.fs'})
 
 if config.fixed_sprites then
 
-    -- High contrast
+    -- -- High contrast
 
-    SMODS.Atlas{key = 'cards_2', path = 'Resprites/EnhancedContrast.png', px = 71, py = 95, prefix_config = {key = false}}
-    SMODS.Atlas{key = 'ui_2', path = 'Resprites/EnhancedUIContrast.png', px = 18, py = 18, prefix_config = {key = false}}
+    -- SMODS.Atlas{key = 'cards_2', path = 'Resprites/EnhancedContrast.png', px = 71, py = 95, prefix_config = {key = false}}
+    -- SMODS.Atlas{key = 'ui_2', path = 'Resprites/EnhancedUIContrast.png', px = 18, py = 18, prefix_config = {key = false}}
 
-    G.C['SO_2'] = {
-        Hearts = HEX('ee151b'),
-        Diamonds = HEX('e56b10'),
-        Spades = HEX('5d55a6'),
-        Clubs = HEX('197f77')
-    }
+    -- G.C['SO_2'] = {
+    --     Hearts = HEX('ee151b'),
+    --     Diamonds = HEX('e56b10'),
+    --     Spades = HEX('5d55a6'),
+    --     Clubs = HEX('197f77')
+    -- }
 
     G.C['SO_1']['Spades'] = HEX('3c4368')
 
-    G.C.SUITS = G.C["SO_" .. (G.SETTINGS.colourblind_option and 2 or 1)]
+    -- G.C.SUITS = G.C["SO_" .. (G.SETTINGS.colourblind_option and 2 or 1)]
 
     -- Jokers
 
