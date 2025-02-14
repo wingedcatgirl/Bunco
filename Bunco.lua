@@ -320,7 +320,7 @@ for i, suit in ipairs({'Hearts', 'Diamonds', 'Clubs', 'Spades'}) do
         colour = bunc_hc_colours[suit],
         suit_icon = {
             atlas = 'bunc_ui_alt_hc',
-            pos = {x = i - 1, y = 1}
+            pos = {x = i - 1, y = 0}
         },
         loc_txt = {
             ['en-us'] = 'Bunco High Contrast'
@@ -331,18 +331,23 @@ for i, suit in ipairs({'Hearts', 'Diamonds', 'Clubs', 'Spades'}) do
         SMODS.Atlas{key = 'collab_'.. collab ..'_alt_hc', path = 'Resprites/collabs/collab_' .. collab .. '_EnhancedContrast.png', px = 71, py = 95}
         SMODS.DeckSkin.add_palette(SMODS.DeckSkins['collab_' .. collab], {
             key = 'bunc_hc_' .. suit,
-            ranks = {'Jack', 'Queen', 'King',},
+            ranks = {'2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace',},
             display_ranks = {'King', 'Queen', 'Jack'},
-            atlas = 'bunc_collab_'.. collab ..'_alt_hc',
-            pos_style = 'collab',
+            atlas = 'bunc_cards_alt_hc',
+            pos_style = {
+                fallback_style = "deck",
+                ['Jack'] = { pos = {x = 0, y = 0}, atlas = 'bunc_collab_'.. collab ..'_alt_hc'},
+                ['Queen'] = { pos = {x = 1, y = 0}, atlas = 'bunc_collab_'.. collab ..'_alt_hc'},
+                ['King'] = { pos = {x = 2, y = 0}, atlas = 'bunc_collab_'.. collab ..'_alt_hc'},
+            },
             colour = bunc_hc_colours[suit],
             suit_icon = {
                 atlas = 'bunc_ui_alt_hc',
-                pos = {x = i - 1, y = 1}
+                pos = {x = i - 1, y = 0}
             },
             loc_txt = {
                 ['en-us'] = 'Bunco High Contrast'
-            }
+            },
         })
     end
 end
