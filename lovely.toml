@@ -2729,12 +2729,9 @@ end
 '''
 
 # Info queue for consumables 1/2
-# Info queue for consumables 1/2
 [[patches]]
 [patches.pattern]
 target = 'functions/common_events.lua'
-pattern = "local t = {key = 'e_'..v, set = 'Edition', config = {}}"
-position = 'before'
 pattern = "local t = {key = 'e_'..v, set = 'Edition', config = {}}"
 position = 'before'
 match_indent = true
@@ -2743,15 +2740,9 @@ if _c.consumeable and (v == 'foil' or v == 'holo' or v == 'polychrome' or v == '
     info_queue[#info_queue + 1] = G.P_CENTERS['bunc_consumable_edition_'..v]
     info_queue[#info_queue + 1] = {
     key = (v == 'foil') and 'tag_bunc_chips'
-if _c.consumeable and (v == 'foil' or v == 'holo' or v == 'polychrome' or v == 'bunc_glitter') then
-    info_queue[#info_queue + 1] = G.P_CENTERS['bunc_consumable_edition_'..v]
-    info_queue[#info_queue + 1] = {
-    key = (v == 'foil') and 'tag_bunc_chips'
         or (v == 'holo') and 'tag_bunc_mult'
         or (v == 'polychrome') and 'tag_bunc_xmult'
         or (v == 'bunc_glitter') and 'tag_bunc_xchips',
-    set = 'Tag',
-    specific_vars = (v == 'foil') and {G.P_CENTERS.e_foil.config.extra}
     set = 'Tag',
     specific_vars = (v == 'foil') and {G.P_CENTERS.e_foil.config.extra}
         or (v == 'holo') and {G.P_CENTERS.e_holo.config.extra}
@@ -3608,9 +3599,7 @@ pattern = '''ability_text[1] and {n=G.UIT.R, config={align = "cm", padding = 0.0
 position = 'after'
 match_indent = true
 payload = ''',
-
 ability_text[1] and blind.boss and {n=G.UIT.R, config={align = "cm"}, nodes={
     {n=G.UIT.T, config={text = blind.boss.showdown and localize('bunc_final_blind') or (localize('bunc_min_ante')..' '..(blind.boss.min or '?')), scale = 0.3, colour = G.C.UI.TEXT_INACTIVE}}
 }},
-
 '''
