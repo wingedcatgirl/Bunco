@@ -135,7 +135,31 @@ return {
             },
             default_Diamonds = {
                 ['3'] = 'Recast Contrast'
-            }
+            },
+            collab_AU = { ['3'] = 'Recast Contrast' },
+            collab_TBoI = { ['3'] = 'Recast Contrast' },
+            collab_CL = { ['3'] = 'Recast Contrast' },
+            collab_D2 = { ['3'] = 'Recast Contrast' },
+            collab_BUG = { ['3'] = 'Recast Contrast' },
+            collab_CR = { ['3'] = 'Recast Contrast' },
+            collab_DTD = { ['3'] = 'Recast Contrast' },
+            collab_SV = { ['3'] = 'Recast Contrast' },
+            collab_EG = { ['3'] = 'Recast Contrast' },
+            collab_XR = { ['3'] = 'Recast Contrast' },
+            collab_C7 = { ['3'] = 'Recast Contrast' },
+            collab_R = { ['3'] = 'Recast Contrast' },
+            collab_VS = { ['3'] = 'Recast Contrast' },
+            collab_STS = { ['3'] = 'Recast Contrast' },
+            collab_PC = { ['3'] = 'Recast Contrast' },
+            collab_WF = { ['3'] = 'Recast Contrast' },
+            collab_DBD = { ['3'] = 'Recast Contrast' },
+            collab_FO = { ['3'] = 'Recast Contrast' },
+            collab_TW = { ['3'] = 'Recast Contrast' },
+            collab_CYP = { ['3'] = 'Recast Contrast' },
+            collab_SK = { ['3'] = 'Recast Contrast' },
+            collab_DS = { ['3'] = 'Recast Contrast' },
+            collab_AC = { ['3'] = 'Recast Contrast' },
+            collab_STP = { ['3'] = 'Recast Contrast' },
         },
         collabs = {
             bunc_Fleurons = {
