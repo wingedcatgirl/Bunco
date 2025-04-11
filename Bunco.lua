@@ -7673,6 +7673,7 @@ SMODS.Edition{
     sound = {sound = 'bunc_glitter', per = 1.2, vol = 0.4},
     in_shop = true,
     weight = 9,
+    extra_cost = 3,
     get_weight = function(self)
         return G.GAME.edition_rate * self.weight
     end,
