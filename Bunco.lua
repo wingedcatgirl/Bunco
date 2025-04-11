@@ -2972,8 +2972,11 @@ create_joker({ -- Vandalism
         end
     end,
     calculate = function(self, card, context)
-        if context.stay_flipped and not context.blueprint then
-            big_juice(card)
+        if context.stay_flipped and not context.blueprint and context.to_area == G.hand then
+            -- Does not juice while in booster packs
+            if G.STATE == G.STATES.SELECTING_HAND or G.STATE == G.STATES.DRAW_TO_HAND then
+                big_juice(card)
+            end
         end
         if context.play_cards then
             card.ability.extra.card_list = {}
