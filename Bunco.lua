@@ -2847,12 +2847,14 @@ create_joker({ -- Pawn
     custom_vars = function(self, info_queue, card)
         if G.playing_cards and #G.playing_cards > 0 then
             local rank = math.huge
+            local display_rank = ""
             for _, deck_card in ipairs(G.playing_cards) do
                 if deck_card:get_id() < rank and deck_card.config.center ~= G.P_CENTERS.m_stone then
                     rank = deck_card:get_id()
+                    display_rank = deck_card.base.value
                 end
             end
-            return {vars = {localize(tostring(rank), 'ranks')}}
+            return {vars = {localize(tostring(display_rank), 'ranks')}}
         end
         return {vars = {localize('2', 'ranks')}}
     end,
