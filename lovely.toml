@@ -2201,22 +2201,22 @@ position = 'at'
 match_indent = true
 payload = '''ease_to = G.GAME.chips + math.floor(hand_chips * mult) * (antiscore and -1 or 1),'''
 
-# function get_new_boss() (Turquoise Shield 1/2)
-[[patches]]
-[patches.pattern]
-target = 'game.lua'
-pattern = 'function Game:update(dt)'
-position = 'after'
-match_indent = true
-payload = '''
+# # function get_new_boss() (Turquoise Shield 1/2)
+# [[patches]]
+# [patches.pattern]
+# target = 'game.lua'
+# pattern = 'function Game:update(dt)'
+# position = 'after'
+# match_indent = true
+# payload = '''
 
-if G.GAME.round_resets.blind_choices and G.GAME.round_resets.blind_choices.Boss and G.GAME.round_resets.blind_choices.Boss == 'bl_bunc_final_shield' then
-    G.GAME.Shield = true
-else
-    G.GAME.Shield = false
-end
+# if G.GAME.round_resets.blind_choices and G.GAME.round_resets.blind_choices.Boss and G.GAME.round_resets.blind_choices.Boss == 'bl_bunc_final_shield' then
+#     G.GAME.Shield = true
+# else
+#     G.GAME.Shield = false
+# end
 
-'''
+# '''
 
 # function end_round() (Turquoise Shield 2/2)
 [[patches]]
@@ -2226,7 +2226,9 @@ pattern = "function end_round()"
 position = 'after'
 match_indent = true
 payload = '''
-if G.GAME.Shield == true then
+if G.GAME.blind:get_type() == 'Boss' then
+    G.GAME.overscore = 0
+else
     if type(G.GAME.chips) ~= 'table' then
         if G.GAME.chips - G.GAME.blind.chips >= 0 then
             G.GAME.overscore = (G.GAME.overscore or 0) + G.GAME.chips - G.GAME.blind.chips
