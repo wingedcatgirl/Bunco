@@ -7,9 +7,11 @@
 	"prefix": "bunc",
 	"main_file": "Bunco.lua",
 	"version": "5.1~JumboFork",
+	"dependencies": [
+		"Steamodded (>=1.0.0~BETA-0404a)"
+	],
 	"conflicts": [
         "Lovely (<<0.7.1)",
-		"Talisman (<=2.0.3)",
-		"Steamodded (<<1.0.0~BETA-0404a)"
+		"Talisman (<=2.0.3)"
     ]
 }
