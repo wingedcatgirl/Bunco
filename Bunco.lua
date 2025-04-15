@@ -6854,7 +6854,7 @@ SMODS.Blind{ -- Chartreuse Crown
             for k, v in pairs(G.playing_cards) do
                 if (v.base.suit == ('bunc_Fleurons') or
                 v.base.suit == ('bunc_Halberds')) and
-                v.ability.name ~= 'Stone Card' then
+                not SMODS.has_no_suit(v) then
                     exotic_amount = exotic_amount + 1
                 end
             end
