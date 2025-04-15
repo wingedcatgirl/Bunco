@@ -2333,9 +2333,11 @@ create_joker({ -- Neon
     end,
     calculate = function(self, card, context)
         if context.enhance_card and not context.blueprint then
-            if context.enhanced_card:get_edition() == nil then
-                context.enhanced_card:set_edition({bunc_fluorescent = true})
-                event({func = function() big_juice(card) return true end})
+            if context.enhanced_card.area == G.hand then
+                if context.enhanced_card:get_edition() == nil then
+                    context.enhanced_card:set_edition({bunc_fluorescent = true})
+                    event({func = function() big_juice(card) return true end})
+                end
             end
         end
     end
