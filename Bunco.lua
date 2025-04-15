@@ -3053,10 +3053,12 @@ create_joker({ -- Protester
         if context.pre_discard then
             local raised_card = nil
             for i = 1, #G.hand.highlighted do
-                if not card.debuff and card.ability.extra.rank < G.hand.highlighted[i].base.nominal and G.hand.cards[i].ability.effect ~= 'Stone Card' then
-                    card.ability.extra.chips = G.hand.highlighted[i].base.nominal * card.ability.extra.chip_mult
-                    card.ability.extra.rank = G.hand.highlighted[i].base.nominal
-                    raised_card = G.hand.highlighted[i]
+                if not card.debuff and card.ability.extra.rank < G.hand.highlighted[i].base.nominal then
+                    if not SMODS.has_no_rank(G.hand.highlighted[i]) and not G.hand.highlighted[i].debuff then
+                        card.ability.extra.chips = G.hand.highlighted[i].base.nominal * card.ability.extra.chip_mult
+                        card.ability.extra.rank = G.hand.highlighted[i].base.nominal
+                        raised_card = G.hand.highlighted[i]
+                    end
                 end
             end
             if raised_card then
@@ -6840,7 +6842,7 @@ SMODS.Blind{ -- Chartreuse Crown
             card.base.suit == ('Hearts') or
             card.base.suit == ('Clubs') or
             card.base.suit == ('Diamonds') then
-                if card.ability.name ~= 'Stone Card' then
+                if not SMODS.has_no_suit(card) then
                     card:set_debuff(true)
                     return true
                 end
