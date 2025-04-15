@@ -1521,7 +1521,7 @@ payload = '''G.GAME.money_spend_this_round = 0'''
 [[patches]]
 [patches.pattern]
 target = 'functions/state_events.lua'
-pattern = '''function end_round()'''
+pattern = '''check_for_unlock({type = 'round_win'})'''
 position = 'after'
 match_indent = true
 payload = '''
