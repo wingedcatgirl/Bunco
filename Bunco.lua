@@ -7442,7 +7442,12 @@ SMODS.Tag{ -- Eternal
 
     apply = function(self, tag, context)
         if context.type == self.config.type then
-            if context.card and not context.card.ability.eternal and not context.card.ability.perishable and context.card.ability.set == 'Joker' then
+            if context.card and 
+                not context.card.ability.eternal and 
+                not context.card.ability.perishable and 
+                context.card.ability.set == 'Joker' and
+                context.card.config.center.eternal_compat
+            then
                 local lock = tag.ID
                 G.CONTROLLER.locks[lock] = true
                 tag:yep('+', G.C.RED, function()
@@ -7476,7 +7481,12 @@ SMODS.Tag{ -- Perishable
 
     apply = function(self, tag, context)
         if context.type == self.config.type then
-            if context.card and not context.card.ability.perishable and not context.card.ability.eternal and context.card.ability.set == 'Joker' then
+            if context.card and 
+                not context.card.ability.perishable and 
+                not context.card.ability.eternal and 
+                context.card.ability.set == 'Joker' and
+                context.card.config.center.perishable_compat
+            then
                 local lock = tag.ID
                 G.CONTROLLER.locks[lock] = true
                 tag:yep('+', G.C.RED, function()
