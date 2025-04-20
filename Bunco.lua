@@ -1521,7 +1521,7 @@ create_joker({ -- Dread
                 end
             end
 
-            if (context.after or context.first_hand_drawn) and G.GAME.current_round.hands_left == 1 then -- For shaking the card when there's one hand left
+            if (context.after or context.first_hand_drawn) and G.GAME.current_round.hands_left <= 1 then -- For shaking the card when there's one hand left
                 event({func = function ()
                     local eval = function() return G.GAME.current_round.hands_left == nil or G.GAME.current_round.hands_left ~= 0 end
                     juice_card_until(card, eval, true)
@@ -1908,7 +1908,7 @@ create_joker({ -- Righthook
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play and context.scoring_hand and context.other_card == context.scoring_hand[#context.scoring_hand] then
 
-            local repetitions = G.GAME.current_round.hands_left
+            local repetitions = G.GAME.cry_panop_juggle or G.GAME.current_round.hands_left -- For cryptid compat
 
             return {
                 message = localize('k_again_ex'),
