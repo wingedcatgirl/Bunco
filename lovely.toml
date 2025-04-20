@@ -1198,14 +1198,7 @@ position = 'after'
 match_indent = true
 payload = '''
 
-if G.jokers ~= nil then
-    for _, v in ipairs(G.jokers.cards) do
-        if v.config.center.key == 'j_bunc_cellphone' and v.ability.extra.active and not v.debuff then
-            v:calculate_joker({press_play = true})
-            break
-        end
-    end
-end
+SMODS.calculate_context({ bunc_press_play = true })
 
 '''
 

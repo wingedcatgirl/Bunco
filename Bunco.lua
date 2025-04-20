@@ -3313,18 +3313,20 @@ create_joker({ -- Cellphone
     calculate = function(self, card, context)
         if context.first_hand_drawn then
             card.ability.extra.active = true
-            local eval = function() return G.GAME.current_round.hands_played == 0 and G.GAME.current_round.discards_used == 0 end
+            local eval = function() return card.ability.extra.active end
             juice_card_until(card, eval, true)
         end
         if context.joker_main and context.scoring_hand then
             card.ability.extra.cards_to_hand = context.scoring_hand
         end
-        if context.press_play and card.ability.extra.active and G.GAME.current_round.hands_played == 0 then
+        if context.bunc_press_play and card.ability.extra.active and G.GAME.current_round.hands_played == 0 then
             forced_message(G.localization.misc.dictionary.bunc_accepted, card, G.C.GREEN)
         end
         if context.after and G.GAME.current_round.hands_played == 0 then
             event({func = function ()
-                card.ability.extra.active = false
+                if G.GAME.current_round.hands_played > 0 then
+                    card.ability.extra.active = false
+                end
                 return true
             end})
         end
@@ -6520,7 +6522,7 @@ SMODS.Blind{ -- The Knoll
 
     stay_flipped = function(self, area, card)
         if not G.GAME.blind.disabled and (area == G.hand) and
-        G.GAME.current_round.hands_played == 0 and G.GAME.current_round.discards_used == 0 then
+        G.GAME.current_round.hands_played == 0 and G.GAME.current_round.discards_used == 0 and #(G.GAME.Knoll or {}) < G.hand.config.card_limit then
             if G.GAME.dollars > to_big(5) then
                 G.GAME.Knoll = G.GAME.Knoll or {}
                 table.insert(G.GAME.Knoll, card)
@@ -6729,11 +6731,15 @@ SMODS.Blind{ -- The Wind
     boss = {min = 6},
 
     drawn_to_hand = function(self)
-        if not G.GAME.blind.disabled and G.GAME.current_round.hands_played == 0 and G.GAME.current_round.discards_used == 0 then
+        if not G.GAME.blind.disabled and G.GAME.current_round.hands_played == 0 and G.GAME.current_round.discards_used == 0 and not G.GAME.bunc_bl_wind_flag then
             G.GAME.blind.ready = true
             if G.jokers and G.jokers.cards[1] then big_juice(G.jokers.cards[1]) end
             G.GAME.blind:wiggle()
+            G.GAME.bunc_bl_wind_flag = true
         end
+    end,
+    defeat = function(self)
+        G.GAME.bunc_bl_wind_flag = nil
     end,
 
     boss_colour = HEX('a6cdef'),
@@ -6757,9 +6763,15 @@ SMODS.Blind{ -- The Prince
             end
             G.GAME.blind:wiggle()
         end
-        if not G.GAME.blind.disabled and G.GAME.current_round.hands_played > 0 then
+        if not G.GAME.blind.disabled and G.GAME.bunc_bl_prince_flag then
             G.GAME.blind:disable()
         end
+    end,
+    press_play = function(self)
+        G.GAME.bunc_bl_prince_flag = true
+    end,
+    defeat = function(self)
+        G.GAME.bunc_bl_prince_flag = nil
     end,
 
     boss_colour = HEX('f31745'),
