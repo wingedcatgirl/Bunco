@@ -475,11 +475,11 @@ end
 
 if config.fixed_sprites then
 
-    -- High contrast
+    -- -- High contrast
 
     G.C['SO_1']['Spades'] = HEX('3c4368')
 
-    G.C.SUITS = G.C["SO_" .. (G.SETTINGS.colourblind_option and 2 or 1)]
+    -- G.C.SUITS = G.C["SO_" .. (G.SETTINGS.colourblind_option and 2 or 1)]
 
     if not next(SMODS.find_mod("malverk")) then
 
@@ -5966,53 +5966,57 @@ table.insert(SMODS.Suit.obj_buffer, 1, table.remove(SMODS.Suit.obj_buffer, 2))
 SMODS.Atlas{key = 'bunco_resprites_enhanced_contrast', path = 'Resprites/EnhancedContrast.png', px = 71, py = 95}
 SMODS.Atlas{key = 'bunco_resprites_enhanced_contrast_ui', path = 'Resprites/EnhancedUIContrast.png', px = 18, py = 18}
 
-SMODS.DeckSkin.add_palette(SMODS.DeckSkins['default_Spades'], {
-    key = 'recast_contrast',
-    ranks = {'2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace'},
-    display_ranks = {'King', 'Queen', 'Jack'},
-    atlas = 'bunc_bunco_resprites_enhanced_contrast',
-    pos_style = 'deck',
-    colour = HEX('5d55a6'),
-    suit_icon = {
-        atlas = 'bunc_bunco_resprites_enhanced_contrast_ui'
-    }
-})
+-- Bunco High Contrast
 
-SMODS.DeckSkin.add_palette(SMODS.DeckSkins['default_Hearts'], {
-    key = 'recast_contrast',
-    ranks = {'2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace'},
-    display_ranks = {'King', 'Queen', 'Jack'},
-    atlas = 'bunc_bunco_resprites_enhanced_contrast',
-    pos_style = 'deck',
-    colour = HEX('ee151b'),
-    suit_icon = {
-        atlas = 'bunc_bunco_resprites_enhanced_contrast_ui'
-    }
-})
+local collabs = {
+    Hearts = {'AU', 'TBoI', 'CL', 'D2', 'BUG', 'CR'},
+    Diamonds = {'DTD', 'SV', 'EG', 'XR', 'C7', 'R'},
+    Clubs = {'VS', 'STS', 'PC', 'WF', 'DBD', 'FO'},
+    Spades = {'TW', 'CYP', 'SK', 'DS', 'AC', 'STP'},
+}
 
-SMODS.DeckSkin.add_palette(SMODS.DeckSkins['default_Clubs'], {
-    key = 'recast_contrast',
-    ranks = {'2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace'},
-    display_ranks = {'King', 'Queen', 'Jack'},
-    atlas = 'bunc_bunco_resprites_enhanced_contrast',
-    pos_style = 'deck',
-    colour = HEX('197f77'),
-    suit_icon = {
-        atlas = 'bunc_bunco_resprites_enhanced_contrast_ui'
-    }
-})
+local bunc_hc_colours = {
+    Hearts = HEX('ee151b'),
+    Diamonds = HEX('e56b10'),
+    Spades = HEX('5d55a6'),
+    Clubs = HEX('197f77')
+}
 
-SMODS.DeckSkin.add_palette(SMODS.DeckSkins['default_Diamonds'], {
-    key = 'recast_contrast',
-    ranks = {'2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace'},
-    display_ranks = {'King', 'Queen', 'Jack'},
-    atlas = 'bunc_bunco_resprites_enhanced_contrast',
-    pos_style = 'deck',
-    colour = HEX('e56b10'),
-    suit_icon = {
-        atlas = 'bunc_bunco_resprites_enhanced_contrast_ui'
-    }
-})
+for i, suit in ipairs({'Hearts', 'Diamonds', 'Clubs', 'Spades'}) do
+    SMODS.DeckSkin.add_palette(SMODS.DeckSkins['default_' .. suit], {
+        key = 'recast_contrast',
+        ranks = {'2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace',},
+        display_ranks = {'King', 'Queen', 'Jack'},
+        atlas = 'bunc_bunco_resprites_enhanced_contrast',
+        pos_style = 'deck',
+        colour = bunc_hc_colours[suit],
+        suit_icon = {
+            atlas = 'bunc_bunco_resprites_enhanced_contrast_ui',
+            pos = {x = i - 1, y = 0}
+        },
+    })
+
+    for _, collab in pairs(collabs[suit]) do
+        SMODS.Atlas{key = 'collab_'.. collab ..'_alt_hc', path = 'Resprites/collabs/collab_' .. collab .. '_EnhancedContrast.png', px = 71, py = 95}
+        SMODS.DeckSkin.add_palette(SMODS.DeckSkins['collab_' .. collab], {
+            key = 'recast_contrast',
+            ranks = {'2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace',},
+            display_ranks = {'King', 'Queen', 'Jack'},
+            atlas = 'bunc_bunco_resprites_enhanced_contrast',
+            pos_style = {
+                fallback_style = "deck",
+                ['Jack'] = { pos = {x = 0, y = 0}, atlas = 'bunc_collab_'.. collab ..'_alt_hc'},
+                ['Queen'] = { pos = {x = 1, y = 0}, atlas = 'bunc_collab_'.. collab ..'_alt_hc'},
+                ['King'] = { pos = {x = 2, y = 0}, atlas = 'bunc_collab_'.. collab ..'_alt_hc'},
+            },
+            colour = bunc_hc_colours[suit],
+            suit_icon = {
+                atlas = 'bunc_bunco_resprites_enhanced_contrast_ui',
+                pos = {x = i - 1, y = 0}
+            },
+        })
+    end
+end
 
 SMODS.Atlas({key = 'bunco_skins_duckgame_lc', path = 'Skins/SkinDuckGameLC.png', px = 71, py = 95})
 SMODS.Atlas({key = 'bunco_skins_duckgame_hc', path = 'Skins/SkinDuckGameHC.png', px = 71, py = 95})
