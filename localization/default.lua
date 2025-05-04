@@ -48,8 +48,10 @@ return {
             bunc_accepted = 'Accepted!',
             bunc_robbed = 'Robbed!',
             bunc_ouch = 'OUCH!',
+            bunc_inactive = 'inactive',
             bunc_repeat = 'Repeat!',
             bunc_thoth_tarot = 'Thoth Tarot',
+            bunc_thoth_tarots = 'Thoth Tarots',
             bunc_mysterious_tarot = 'Tarot?',
             bunc_mysterious_polymino = 'Polymino?',
             bunc_most_played_rank = '(most played rank)',
@@ -178,6 +180,14 @@ return {
         Other = {
             bunc_temporary_extra_chips = {['text'] = {[1] = '{C:chips}+#1#{} extra chips this round'}},
             bunc_linked_cards = {['text'] = {[1] = '{C:attention}Linked{} in this group:'}},
+            bunc_linked_group = {
+                ['name'] = 'Linked group',
+                ['text'] = {
+                    [1] = 'Linked cards in group',
+                    [2] = 'are drawn, selected',
+                    [3] = 'and destroyed {C:attention}together'
+                }
+            },
             bunc_drawn_linked_cards = {['text'] = {[1] = '{C:attention}Linked{} in drawn group'}},
             bunc_light_suits = {
                 ['name'] = 'Light suits',
@@ -365,6 +375,11 @@ return {
                     [1] = 'Enhances up to {C:attention}#1#{}',
                     [2] = 'selected cards to',
                     [3] = '{C:attention}#2#s'
+                },
+                ['unlock'] = {
+                    [1] = 'Discover at least',
+                    [2] = '{C:attention}#1#{} items from',
+                    [3] = 'your collection'
                 }
             },
             c_bunc_art = {
@@ -373,6 +388,11 @@ return {
                     [1] = 'Enhances up to {C:attention}#1#{}',
                     [2] = 'selected cards to',
                     [3] = '{C:attention}#2#s'
+                },
+                ['unlock'] = {
+                    [1] = 'Discover at least',
+                    [2] = '{C:attention}#1#{} items from',
+                    [3] = 'your collection'
                 }
             },
             c_bunc_universe = {
@@ -382,6 +402,11 @@ return {
                     [2] = 'rank, enhancement, edition,',
                     [3] = 'and seal of up to {C:attention}#1#{}',
                     [4] = 'selected cards'
+                },
+                ['unlock'] = {
+                    [1] = 'Discover at least',
+                    [2] = '{C:attention}#1#{} items from',
+                    [3] = 'your collection'
                 }
             },
             c_bunc_lust = {
@@ -391,6 +416,11 @@ return {
                     [2] = 'playing card held',
                     [3] = 'in hand {C:inactive}(Max of {C:money}$#2#{C:inactive})',
                     [4] = '{C:inactive}(Currently {C:money}$#3#{C:inactive})'
+                },
+                ['unlock'] = {
+                    [1] = 'Discover at least',
+                    [2] = '{C:attention}#1#{} items from',
+                    [3] = 'your collection'
                 }
             },
             c_bunc_sky = {
@@ -773,7 +803,6 @@ return {
                     [2] = '{C:attention}destroy{} a random Joker to',
                     [3] = 'go one Ante back, next time',
                     [4] = 'works only on a greater Ante'
-                    -- TODO needs a line for whether it's active / ante it will be active
                 },
                 ['unlock'] = {
                     [1] = 'Reach Ante',
@@ -841,7 +870,7 @@ return {
             j_bunc_registration_plate = {
                 ['name'] = 'Registration Plate',
                 ['text'] = {
-                    [1] = '#1#',
+                    [1] = '#1#, #2#, #3#, #4#, and #5#',
                     [2] = 'has the Chips and Mult of all',
                     [3] = '{C:attention}poker hands{} played this game',
                     [4] = '{s:0.8}Combination changes every round'
@@ -1320,10 +1349,10 @@ return {
             j_bunc_magic_wand = {
                 ['name'] = 'Magic Wand',
                 ['text'] = {
-                    [1] = 'This Joker gains {X:mult,C:white}X#1#{} Mult',
+                    [1] = 'This Joker gains {C:mult}+#1#{} Mult',
                     [2] = 'per {C:attention}consecutive{} played hand',
                     [3] = 'containing a {C:attention}Spectrum{}',
-                    [4] = '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)'
+                    [4] = '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)'
                 }
             },
             j_bunc_starfruit = {

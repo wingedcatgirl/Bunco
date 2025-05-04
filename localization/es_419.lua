@@ -696,7 +696,7 @@ return {
             j_bunc_registration_plate = {
                 ['name'] = 'Matrícula',
                 ['text'] = {
-                    [1] = '#1#',
+                    [1] = '#1#, #2#, #3#, #4# y #5#',
                     [2] = 'tiene las fichas y el multi de todas',
                     [3] = 'las {C:attention}manos de póker{} jugadas esta partida',
                     [4] = '{s:0.8}La combinación cambia cada ronda'

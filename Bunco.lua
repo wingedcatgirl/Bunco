@@ -1,14 +1,3 @@
---- STEAMODDED HEADER
---- MOD_NAME: Bunco
---- MOD_ID: Bunco
---- MOD_AUTHOR: [Firch, RENREN, Peas, minichibis, J.D., Guwahavel, Ciirulean, ejwu]
---- MOD_DESCRIPTION: Mod aiming for vanilla style, a lot of new Jokers, Blinds, other stuff and Exotic Suits system!
---- VERSION: 5.0
-
--- ToDo:
--- Make configs apply immediately
--- Shell Game should modify tables instead of replacing - see Blind Packs
-
 BUNCOMOD = {vars = {}, funcs = {}, content = SMODS.current_mod}
 local filesystem = NFS or love.filesystem
 
@@ -18,6 +7,16 @@ local config = BUNCOMOD.content.config
 
 local function say(message)
     sendDebugMessage('[BUNCO] - '..(message or '???'))
+end
+
+-- Talisman-related functions
+
+to_big = to_big or function(x)
+    return x
+end
+
+to_number = to_number or function(x)
+    return x
 end
 
 -- Index-based coordinates generation
@@ -87,6 +86,15 @@ function BUNCOMOD.content.process_loc_text()
     G.P_CENTERS['bunc_consumable_edition_polychrome'] = {key = 'bunc_consumable_edition_polychrome', set = 'Other'}
     G.P_CENTERS['bunc_consumable_edition_bunc_glitter'] = {key = 'bunc_consumable_edition_bunc_glitter', set = 'Other'}
 end
+
+-- Mod icon
+
+SMODS.Atlas({
+    key = 'modicon',
+    path = 'Icon/Icon.png',
+    px = 34,
+    py = 34
+})
 
 -- Config globals
 
@@ -260,7 +268,170 @@ function BUNCOMOD.content.config_tab()
     }}
 end
 
+-- Credits tab
+
+SMODS.current_mod.extra_tabs = function()
+    local text_scale = 0.6
+	return {
+		{
+			label = G.localization.misc.dictionary.b_credits,
+			tab_definition_function = function()
+				return {n = G.UIT.ROOT, config = {r = 0.1, minw = 4, align = "tm", padding = 0.2, colour = G.C.BLACK}, nodes = {
+                {n=G.UIT.R, config={align = "cm", padding = 0.1, outline_colour = G.C.JOKER_GREY, r = 0.1, outline = 1}, nodes={
+                    {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                        {n=G.UIT.T, config={text = G.localization.misc.dictionary.b_credits, scale = text_scale*0.6, colour = G.C.ORANGE, shadow = true}},
+                    }},
+                    {n=G.UIT.R, config={align = "tm", padding = 0}, nodes={
+                        {n=G.UIT.C, config={align = "tl", padding = 0.05, minw = 2.0}, nodes={
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'Firch', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'RENREN', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'Peas', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'minichibis', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'J.D.', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'Guwahavel', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'Ciirulean', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'ejwu', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'sadlyjustal', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'Domique', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'Haloway', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'hapty', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'Joey', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'hellfirejune', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'Oroshibu', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'women', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'cometz', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'ferrium', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'hippocrunchy', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'Biverom', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'Just_Shrimmp', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'wingedcatgirl', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'Shinosan', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }}
+                        }},
+                        {n=G.UIT.C, config={align = "tl", padding = 0.05, minw = 2.0}, nodes={
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'Mikadoe', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'Lyman', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'jostro', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'kingbobson', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'aure__', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'itayfeder', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'autumnmood', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'arachneii', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'mysthaps', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'iwas_nevergood', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'chromapie', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'kaishi_', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'Victin', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'sdm_0', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'PinkMaggit', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'Ardub23', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'nh6574', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'jumbocarrot0', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'weird_autumn', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'unascribed', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'itsmythie', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                                {n=G.UIT.T, config={text = 'VisJoker', scale = text_scale*0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }}
+                        }},
+                    }},
+                    }}
+				}}
+			end,
+		}
+	}
+end
+
 -- Shaders
+
+SMODS.Shader({key = 'pinch', path = 'pinch.fs'})
 
 if config.high_quality_shaders then
     local background_shader = NFS.read(BUNCOMOD.content.path..'assets/shaders/background.fs')
@@ -277,26 +448,30 @@ SMODS.Consumable:take_ownership('pluto', {
     set_card_type_badge = function(self, card, badges)
         badges[1] = create_badge(config.fixed_badges and localize('k_planet') or localize('k_dwarf_planet'), get_type_colour(self or card.config, card), nil, 1.2)
     end
-})
+}, true)
 
 SMODS.Consumable:take_ownership('ceres', {
     set_card_type_badge = function(self, card, badges)
         badges[1] = create_badge(config.fixed_badges and localize('k_planet_q') or localize('k_dwarf_planet'), get_type_colour(self or card.config, card), nil, 1.2)
     end
-})
+}, true)
 
 SMODS.Consumable:take_ownership('eris', {
     set_card_type_badge = function(self, card, badges)
         badges[1] = create_badge(config.fixed_badges and localize('k_planet_q') or localize('k_dwarf_planet'), get_type_colour(self or card.config, card), nil, 1.2)
     end
-})
+}, true)
 
 -- Fixed sprites
 
 SMODS.Atlas({key = 'bunco_resprites_jokers', path = 'Resprites/Jokers.png', px = 71, py = 95})
-SMODS.Atlas({key = 'bunco_resprites_consumables', path = 'Resprites/Consumables.png', px = 71, py = 95})
+SMODS.Atlas({key = 'bunco_resprites_tarots', path = 'Resprites/Tarots.png', px = 71, py = 95})
+SMODS.Atlas({key = 'bunco_resprites_planets', path = 'Resprites/Planets.png', px = 71, py = 95})
+SMODS.Atlas({key = 'bunco_resprites_spectrals', path = 'Resprites/Spectrals.png', px = 71, py = 95})
 
-SMODS.Shader({key = 'pinch', path = 'pinch.fs'})
+function use_fixed_sprite_atlas()
+    return config.fixes_sprites and not next(SMODS.find_mod("malverk"))
+end
 
 if config.fixed_sprites then
 
@@ -306,152 +481,246 @@ if config.fixed_sprites then
 
     -- G.C.SUITS = G.C["SO_" .. (G.SETTINGS.colourblind_option and 2 or 1)]
 
-    -- Jokers
+    if not next(SMODS.find_mod("malverk")) then
 
-    SMODS.Joker:take_ownership('juggler', {
-        pos = coordinate(1),
-        atlas = 'bunco_resprites_jokers'
+        -- Jokers
+
+        SMODS.Joker:take_ownership('juggler', {
+            pos = coordinate(1),
+            atlas = 'bunco_resprites_jokers'
+        }, true)
+
+        SMODS.Joker:take_ownership('drunkard', {
+            pos = coordinate(2),
+            atlas = 'bunco_resprites_jokers'
+        }, true)
+
+        SMODS.Joker:take_ownership('acrobat', {
+            pos = coordinate(3),
+            atlas = 'bunco_resprites_jokers'
+        }, true)
+
+        SMODS.Joker:take_ownership('credit_card', {
+            pos = coordinate(4),
+            atlas = 'bunco_resprites_jokers'
+        }, true)
+
+        SMODS.Joker:take_ownership('troubadour', {
+            pos = coordinate(5),
+            atlas = 'bunco_resprites_jokers'
+        }, true)
+
+        SMODS.Joker:take_ownership('even_steven', {
+            pos = coordinate(6),
+            atlas = 'bunco_resprites_jokers'
+        }, true)
+
+        SMODS.Joker:take_ownership('odd_todd', {
+            pos = coordinate(7),
+            atlas = 'bunco_resprites_jokers'
+        }, true)
+
+        SMODS.Joker:take_ownership('fibonacci', {
+            pos = coordinate(8),
+            atlas = 'bunco_resprites_jokers'
+        }, true)
+
+        SMODS.Joker:take_ownership('drivers_license', {
+            pos = coordinate(9),
+            atlas = 'bunco_resprites_jokers'
+        }, true)
+
+        SMODS.Joker:take_ownership('gift', {
+            pos = coordinate(10),
+            atlas = 'bunco_resprites_jokers'
+        }, true)
+
+        SMODS.Joker:take_ownership('flash', {
+            pos = coordinate(11),
+            atlas = 'bunco_resprites_jokers'
+        }, true)
+
+        SMODS.Joker:take_ownership('ramen', {
+            pos = coordinate(12),
+            atlas = 'bunco_resprites_jokers'
+        }, true)
+
+        SMODS.Joker:take_ownership('selzer', {
+            pos = coordinate(13),
+            atlas = 'bunco_resprites_jokers'
+        }, true)
+
+        SMODS.Joker:take_ownership('scholar', {
+            pos = coordinate(14),
+            atlas = 'bunco_resprites_jokers'
+        }, true)
+
+        -- Consumables
+
+        SMODS.Consumable:take_ownership('fool', {
+            pos = coordinate(1),
+            atlas = 'bunco_resprites_tarots'
+        }, true)
+
+        SMODS.Consumable:take_ownership('lovers', {
+            pos = coordinate(2),
+            atlas = 'bunco_resprites_tarots'
+        }, true)
+
+        SMODS.Consumable:take_ownership('chariot', {
+            pos = coordinate(3),
+            atlas = 'bunco_resprites_tarots'
+        }, true)
+
+        SMODS.Consumable:take_ownership('wheel_of_fortune', {
+            pos = coordinate(4),
+            atlas = 'bunco_resprites_tarots'
+        }, true)
+
+        SMODS.Consumable:take_ownership('tower', {
+            pos = coordinate(5),
+            atlas = 'bunco_resprites_tarots'
+        }, true)
+
+        SMODS.Consumable:take_ownership('moon', {
+            pos = coordinate(6),
+            atlas = 'bunco_resprites_tarots'
+        }, true)
+
+        SMODS.Consumable:take_ownership('world', {
+            pos = coordinate(7),
+            atlas = 'bunco_resprites_tarots'
+        }, true)
+
+        SMODS.Consumable:take_ownership('soul', {
+            pos = coordinate(1),
+            atlas = 'bunco_resprites_spectrals'
+        }, true)
+
+        SMODS.Consumable:take_ownership('ceres', {
+            pos = coordinate(1),
+            atlas = 'bunco_resprites_planets'
+        }, true)
+
+        SMODS.Consumable:take_ownership('mercury', {
+            pos = coordinate(2),
+            atlas = 'bunco_resprites_planets'
+        }, true)
+
+        SMODS.Consumable:take_ownership('uranus', {
+            pos = coordinate(3),
+            atlas = 'bunco_resprites_planets'
+        }, true)
+
+        SMODS.Consumable:take_ownership('pluto', {
+            pos = coordinate(4),
+            atlas = 'bunco_resprites_planets'
+        }, true)
+
+        SMODS.Consumable:take_ownership('incantation', {
+            pos = coordinate(2),
+            atlas = 'bunco_resprites_spectrals'
+        }, true)
+
+        SMODS.Consumable:take_ownership('black_hole', {
+            pos = coordinate(3),
+            atlas = 'bunco_resprites_spectrals'
+        })
+
+    end
+
+end
+
+if next(SMODS.find_mod("malverk")) then
+    AltTexture({
+        key = 'tarots_fixed_sprites',
+        set = 'Tarot',
+        path = 'Resprites/Tarots.png',
+        keys = {
+          'c_fool',
+          'c_lovers',
+          'c_chariot',
+          'c_wheel_of_fortune',
+          'c_tower',
+          'c_moon',
+          'c_world',
+        },
+        loc_txt = {
+          name = 'Tarot Fixes'
+        }
     })
-
-    SMODS.Joker:take_ownership('drunkard', {
-        pos = coordinate(2),
-        atlas = 'bunco_resprites_jokers'
+    AltTexture({
+        key = 'planets_fixed_sprites',
+        set = 'Planet',
+        path = 'Resprites/Planets.png',
+        keys = {
+          'c_ceres',
+          'c_mercury',
+          'c_uranus',
+          'c_pluto',
+        },
+        loc_txt = {
+          name = 'Planet Fixes'
+        }
     })
-
-    SMODS.Joker:take_ownership('acrobat', {
-        pos = coordinate(3),
-        atlas = 'bunco_resprites_jokers'
+    AltTexture({
+        key = 'spectrals_fixed_sprites',
+        set = 'Spectral',
+        path = 'Resprites/Spectrals.png',
+        keys = {
+          'c_soul',
+          'c_incantation',
+          'c_black_hole'
+        },
+        loc_txt = {
+          name = 'Spectral Fixes'
+        }
     })
-
-    SMODS.Joker:take_ownership('credit_card', {
-        pos = coordinate(4),
-        atlas = 'bunco_resprites_jokers'
+    AltTexture({
+        key = 'jokers_fixed_sprites',
+        set = 'Joker',
+        path = 'Resprites/Jokers.png',
+        keys = {
+          'j_juggler',
+          'j_drunkard',
+          'j_acrobat',
+          'j_credit_card',
+          'j_troubadour',
+          'j_even_steven',
+          'j_odd_todd',
+          'j_fibonacci',
+          'j_drivers_license',
+          'j_gift',
+          'j_flash',
+          'j_ramen',
+          'j_selzer',
+          'j_scholar'
+        },
+        loc_txt = {
+          name = 'Joker Fixes'
+        }
     })
-
-    SMODS.Joker:take_ownership('troubadour', {
-        pos = coordinate(5),
-        atlas = 'bunco_resprites_jokers'
+    
+    TexturePack({
+        key = 'bunc_fixed_sprites',
+        textures = {
+          'bunc_jokers_fixed_sprites',
+          'bunc_tarots_fixed_sprites',
+          'bunc_planets_fixed_sprites',
+          'bunc_spectrals_fixed_sprites',
+        },
+        loc_txt = {
+          name = 'Bunco Resprites',
+          text = {'Port of Bunco sprite fixes'}
+        }
     })
-
-    SMODS.Joker:take_ownership('even_steven', {
-        pos = coordinate(6),
-        atlas = 'bunco_resprites_jokers'
-    })
-
-    SMODS.Joker:take_ownership('odd_todd', {
-        pos = coordinate(7),
-        atlas = 'bunco_resprites_jokers'
-    })
-
-    SMODS.Joker:take_ownership('fibonacci', {
-        pos = coordinate(8),
-        atlas = 'bunco_resprites_jokers'
-    })
-
-    SMODS.Joker:take_ownership('drivers_license', {
-        pos = coordinate(9),
-        atlas = 'bunco_resprites_jokers'
-    })
-
-    SMODS.Joker:take_ownership('gift', {
-        pos = coordinate(10),
-        atlas = 'bunco_resprites_jokers'
-    })
-
-    SMODS.Joker:take_ownership('flash', {
-        pos = coordinate(11),
-        atlas = 'bunco_resprites_jokers'
-    })
-
-    SMODS.Joker:take_ownership('ramen', {
-        pos = coordinate(12),
-        atlas = 'bunco_resprites_jokers'
-    })
-
-    SMODS.Joker:take_ownership('selzer', {
-        pos = coordinate(13),
-        atlas = 'bunco_resprites_jokers'
-    })
-
-    -- Consumables
-
-    SMODS.Consumable:take_ownership('fool', {
-        pos = coordinate(1),
-        atlas = 'bunco_resprites_consumables'
-    })
-
-    SMODS.Consumable:take_ownership('lovers', {
-        pos = coordinate(2),
-        atlas = 'bunco_resprites_consumables'
-    })
-
-    SMODS.Consumable:take_ownership('chariot', {
-        pos = coordinate(3),
-        atlas = 'bunco_resprites_consumables'
-    })
-
-    SMODS.Consumable:take_ownership('wheel_of_fortune', {
-        pos = coordinate(4),
-        atlas = 'bunco_resprites_consumables'
-    })
-
-    SMODS.Consumable:take_ownership('tower', {
-        pos = coordinate(5),
-        atlas = 'bunco_resprites_consumables'
-    })
-
-    SMODS.Consumable:take_ownership('moon', {
-        pos = coordinate(6),
-        atlas = 'bunco_resprites_consumables'
-    })
-
-    SMODS.Consumable:take_ownership('world', {
-        pos = coordinate(7),
-        atlas = 'bunco_resprites_consumables'
-    })
-
-    SMODS.Consumable:take_ownership('soul', {
-        pos = coordinate(8),
-        atlas = 'bunco_resprites_consumables'
-    })
-
-    SMODS.Consumable:take_ownership('ceres', {
-        pos = coordinate(9),
-        atlas = 'bunco_resprites_consumables'
-    })
-
-    SMODS.Consumable:take_ownership('mercury', {
-        pos = coordinate(10),
-        atlas = 'bunco_resprites_consumables'
-    })
-
-    SMODS.Consumable:take_ownership('uranus', {
-        pos = coordinate(11),
-        atlas = 'bunco_resprites_consumables'
-    })
-
-    SMODS.Consumable:take_ownership('pluto', {
-        pos = coordinate(12),
-        atlas = 'bunco_resprites_consumables'
-    })
-
-    SMODS.Consumable:take_ownership('incantation', {
-        pos = coordinate(13),
-        atlas = 'bunco_resprites_consumables'
-    })
-
-    SMODS.Consumable:take_ownership('black_hole', {
-        pos = coordinate(14),
-        atlas = 'bunco_resprites_consumables'
-    })
-
 end
 
 -- Text icons
 
 local font_replacement = NFS.read(BUNCOMOD.content.path..'assets/fonts/font.ttf')
 love.filesystem.write('font_replacement.ttf', font_replacement)
-G.LANG.font.FONT = love.graphics.newFont('font_replacement.ttf', G.TILESIZE * 10)
+G.FONTS[1].FONT = love.graphics.newFont('font_replacement.ttf', G.TILESIZE * 10)
 love.filesystem.remove('font_replacement.ttf')
 
 -- Gameplay reworks
@@ -565,8 +834,8 @@ if config.gameplay_reworks then
             end
             return {key = 'c_bunc_wheel_of_fortune', vars = vars}
         end,
-        pos = config.fixed_sprites and coordinate(4) or nil,
-        atlas = config.fixed_sprites and 'bunco_resprites_consumables' or nil
+        pos = use_fixed_sprite_atlas() and coordinate(4) or nil,
+        atlas = use_fixed_sprite_atlas() and 'bunco_resprites_tarots' or nil
     })
 
     SMODS.Consumable:take_ownership('aura', {
@@ -651,6 +920,73 @@ SMODS.calculate_repetitions = function(card, context, reps)
             locked_card:check_for_unlock({type = 'repetition', repetition_amount = #reps - 1})
         end
     end
+end
+
+-- Various on-money-gain functions
+
+BUNCOMOD.funcs.ease_dollars = function(mod)
+    if G.GAME.Trident and (to_big(mod) <= to_big(0)) then --Vermilion Trident 1/2
+        G.GAME.ante_purchases = (G.GAME.ante_purchases or 0) + 1
+    end
+
+    G.GAME.money_spend_this_round = G.GAME.money_spend_this_round or 0 --Money spent in one shop unlock 1/2
+    if to_big(mod) < to_big(0) then
+        G.GAME.money_spend_this_round = G.GAME.money_spend_this_round - mod
+
+        local locked_card
+
+        for i = 1, #G.P_LOCKED do
+            locked_card = G.P_LOCKED[i]
+
+            if not locked_card.unlocked and locked_card.check_for_unlock and type(locked_card.check_for_unlock) == 'function' then
+                locked_card:check_for_unlock({type = 'round_spend_money', round_spend_money = G.GAME.money_spend_this_round})
+            end
+        end
+    end
+
+    if G.jokers ~= nil then --Jokers that affect money income
+        for _, v in ipairs(G.jokers.cards) do
+            if v.config.center.key == 'j_bunc_fiendish' and not v.debuff then
+                if to_big(mod) > to_big(0) then
+                    if pseudorandom('fiendish'..G.SEED) < G.GAME.probabilities.normal / v.ability.extra.odds then
+                        mod = to_big(1)
+                        local message = to_number(mod)
+                        G.E_MANAGER:add_event(Event{func = function()
+                            card_eval_status_text(
+                            v,
+                            'extra',
+                            nil, nil, nil,
+                            {message = '$'..(message or '1'), colour = G.C.RED, instant = true})
+                        return true end})
+                    else
+                        mod = to_big(mod) * to_big(2)
+                        local message = to_number(mod)
+                        G.E_MANAGER:add_event(Event{func = function()
+                            card_eval_status_text(
+                            v,
+                            'extra',
+                            nil, nil, nil,
+                            {message = '$'..message, colour = G.C.ORANGE, instant = true})
+                        return true end})
+                    end
+                end
+            end
+            if v.config.center.key == 'j_bunc_bounty_hunter' and not v.debuff then
+                if to_big(mod) > to_big(0) then
+                    v:calculate_joker({get_money = true})
+                    mod = to_big(mod) - to_big(1)
+                    G.E_MANAGER:add_event(Event{func = function()
+                        card_eval_status_text(
+                        v,
+                        'extra',
+                        nil, nil, nil,
+                        {message = G.localization.misc.dictionary.bunc_robbed, colour = G.C.ORANGE, instant = true})
+                    return true end})
+                end
+            end
+        end
+    end
+    return(mod)
 end
 
 local original_game_update = Game.update
@@ -769,7 +1105,7 @@ SMODS.Tag:take_ownership('double', {
             return {key = 'tag_bunc_double'}
         end
     end,
-})
+}, true)
 
 -- Joker creation setup
 
@@ -780,6 +1116,7 @@ SMODS.Atlas({key = 'bunco_jokers_the_joker', path = 'Jokers/JokerBlind.png', px 
 SMODS.Atlas({key = 'bunco_jokers_taped', path = 'Jokers/JokerTaped.png', px = 127, py = 113})
 SMODS.Atlas({key = 'bunco_jokers_headache', path = 'Jokers/JokerHeadache.png', px = 71, py = 95})
 SMODS.Atlas({key = 'bunco_jokers_winking', path = 'Jokers/JokerWinking.png', px = 71, py = 95})
+SMODS.Atlas({key = 'bunco_jokers_border', path = 'Jokers/JokerBorder.png', px = 71, py = 95})
 
 SMODS.Sound({key = 'gunshot', path = 'gunshot.ogg'})
 SMODS.Sound({key = 'mousetrap', path = 'mousetrap.ogg'})
@@ -911,6 +1248,12 @@ local function create_joker(joker)
         effect = joker.effect
         }
     end
+    if joker.drawsteps then
+        for index, drawstep in ipairs(joker.drawsteps) do
+            drawstep.key = key..'_'..index
+            SMODS.DrawStep(drawstep)
+        end
+    end
 end
 
 -- Jokers
@@ -989,11 +1332,11 @@ create_joker({ -- Cassette
     blueprint = true, eternal = true,
     unlocked = true,
     calculate = function(self, card, context)
-        if context.pre_discard then
+        if context.pre_discard and not context.blueprint then
             card:flip()
         end
 
-        if context.flip then
+        if context.flip and not context.blueprint then
             forced_message(G.localization.misc.dictionary['bunc_'..(card.ability.extra.side == 'A' and 'b' or 'a')..'_side'], card, G.C.RED)
             if card.ability.extra.side == 'A' then
                 card.ability.extra.side = 'B'
@@ -1269,7 +1612,7 @@ create_joker({ -- Dread
                 end
             end
 
-            if (context.after or context.first_hand_drawn) and G.GAME.current_round.hands_left == 1 then -- For shaking the card when there's one hand left
+            if (context.after or context.first_hand_drawn) and G.GAME.current_round.hands_left <= 1 then -- For shaking the card when there's one hand left
                 event({func = function ()
                     local eval = function() return G.GAME.current_round.hands_left == nil or G.GAME.current_round.hands_left ~= 0 end
                     juice_card_until(card, eval, true)
@@ -1348,11 +1691,6 @@ create_joker({ -- Prehistoric
                 and (v:is_suit(context.other_card.base.suit) or context.other_card.config.center == G.P_CENTERS.m_wild)
                 and context.other_card.config.center ~= G.P_CENTERS.m_stone then
                     return {
-                        message = localize {
-                            type = 'variable',
-                            key = 'a_mult',
-                            vars = {card.ability.extra.mult}
-                        },
                         mult = card.ability.extra.mult,
                         card = card
                     }
@@ -1437,12 +1775,14 @@ create_joker({ -- Loan Shark
     blueprint = false, eternal = true,
     unlocked = false,
     check_for_unlock = function(self, args)
-        if args.type == 'round_spend_money' and args.round_spend_money >= 100 then
+        if args.type == 'round_spend_money' and to_number(args.round_spend_money) >= 100 then
             unlock_card(self)
         end
     end,
-    add = function(self, card)
-        ease_dollars(card.ability.extra.dollars)
+    add = function(self, card, from_debuff)
+        if not from_debuff then
+            ease_dollars(card.ability.extra.dollars)
+        end
         card:set_cost()
     end
 })
@@ -1661,7 +2001,7 @@ create_joker({ -- Righthook
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play and context.scoring_hand and context.other_card == context.scoring_hand[#context.scoring_hand] then
 
-            local repetitions = G.GAME.current_round.hands_left
+            local repetitions = G.GAME.cry_panop_juggle or G.GAME.current_round.hands_left -- For cryptid compat
 
             return {
                 message = localize('k_again_ex'),
@@ -1699,6 +2039,17 @@ create_joker({ -- Fiendish
 create_joker({ -- Carnival
     name = 'Carnival', position = 19,
     vars = {{ante = -huge_number}},
+    custom_vars = function (self, info_queue, card)
+        local active = (G.GAME and G.GAME.round_resets and (G.GAME.round_resets.ante > card.ability.extra.ante)) or false
+        local main_end = {
+            {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
+                {n=G.UIT.C, config={ref_table = self, align = "m", colour = active and G.C.GREEN or G.C.RED, r = 0.05, padding = 0.06}, nodes={
+                    {n=G.UIT.T, config={text = ' '..localize(active and 'k_active' or 'bunc_inactive')..' ',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.9}},
+                }}
+            }}
+        }
+        return {main_end = main_end}
+    end,
     rarity = 'Rare', cost = 10,
     blueprint = false, eternal = true,
     unlocked = false,
@@ -1898,7 +2249,7 @@ create_joker({ -- Nil Bill
     calculate = function(self, card, context)
         if context.remove_playing_cards then
             ease_dollars(card.ability.extra.bonus * #context.removed)
-            forced_message('$'..card.ability.extra.bonus, card, G.C.MONEY)
+            forced_message('$'..card.ability.extra.bonus * #context.removed, card, G.C.MONEY)
         end
     end
 })
@@ -1943,9 +2294,27 @@ create_joker({ -- Bierdeckel
     end
 })
 
+local bunc_registration_plate_refresh = function (card)
+    -- TODO: Make it so a card cannot be randomly chosen twice
+    local card_list = {}
+    for i = 1, 5 do
+        local index = math.random(#G.deck.cards)
+        table.insert(card_list, G.deck.cards[index])
+    end
+
+    card.ability.extra.combination = {}
+    for i = 1, 5 do
+        table.insert(card.ability.extra.combination, card_list[i].base.value)
+    end
+
+    card.ability.extra.ranks = {}
+    for i = 1, 5 do
+        table.insert(card.ability.extra.ranks, card_list[i]:get_id())
+    end
+end
 create_joker({ -- Registration Plate
     name = 'Registration Plate', position = 26,
-    vars = {{combination = ''}, {card_list = {}}, {ranks = {}}},
+    vars = {{combination = {"2", "3", "4", "5", "6"}}, {ranks = {}}},
     rarity = 'Rare', cost = 8,
     blueprint = false, eternal = true,
     unlocked = false,
@@ -1956,58 +2325,23 @@ create_joker({ -- Registration Plate
         end
     end,
     custom_vars = function(self, info_queue, card)
-        local vars
-        if card.ability.extra.combination == '' then
-            vars = {'2, 3, 4, 5 '..G.localization.misc.dictionary.bunc_word_and..' 6'}
-        else
-            vars = {card.ability.extra.combination}
+        local vars = {}
+        for i = 1, #card.ability.extra.combination do
+            table.insert(vars, localize(card.ability.extra.combination[i], 'ranks'))
         end
         return {vars = vars}
     end,
-    add = function(self, card)
-        card.ability.extra.card_list = {}
-
-        for i = 1, 5 do
-            local index = math.random(#G.deck.cards)
-            table.insert(card.ability.extra.card_list, G.deck.cards[index])
+    add = function(self, card, from_debuff)
+        if from_debuff then
+            return
         end
 
-        local combination = {}
-
-        for i = 1, 5 do
-            table.insert(combination, card.ability.extra.card_list[i].base.value)
-        end
-
-        card.ability.extra.ranks = {}
-
-        for i = 1, 5 do
-            table.insert(card.ability.extra.ranks, card.ability.extra.card_list[i]:get_id())
-        end
-
-        card.ability.extra.combination = table.concat(combination, ", ", 1, 4).." "..G.localization.misc.dictionary.bunc_word_and.." "..table.concat(combination, " ", 5)
+        bunc_registration_plate_refresh(card)
     end,
     calculate = function(self, card, context)
         if context.end_of_round and #G.deck.cards ~= 0 then
-            card.ability.extra.card_list = {}
 
-            for i = 1, 5 do
-                local index = math.random(#G.deck.cards)
-                table.insert(card.ability.extra.card_list, G.deck.cards[index])
-            end
-
-            local combination = {}
-
-            for i = 1, 5 do
-                table.insert(combination, card.ability.extra.card_list[i].base.value)
-            end
-
-            card.ability.extra.ranks = {}
-
-            for i = 1, 5 do
-                table.insert(card.ability.extra.ranks, card.ability.extra.card_list[i]:get_id())
-            end
-
-            card.ability.extra.combination = table.concat(combination, ", ", 1, 4).." "..G.localization.misc.dictionary.bunc_word_and.." "..table.concat(combination, " ", 5)
+            bunc_registration_plate_refresh(card)
         end
     end
 })
@@ -2075,9 +2409,11 @@ create_joker({ -- Neon
     end,
     calculate = function(self, card, context)
         if context.enhance_card and not context.blueprint then
-            if context.enhanced_card:get_edition() == nil then
-                context.enhanced_card:set_edition({bunc_fluorescent = true})
-                event({func = function() big_juice(card) return true end})
+            if context.enhanced_card.area == G.hand then
+                if context.enhanced_card:get_edition() == nil then
+                    context.enhanced_card:set_edition({bunc_fluorescent = true})
+                    event({func = function() big_juice(card) return true end})
+                end
             end
         end
     end
@@ -2110,15 +2446,15 @@ create_joker({ -- Gameplan
         end
     end,
     calculate = function(self, card, context)
-        if context.joker_main then
+        if context.other_joker then
             local mult = 0
 
             local my_pos = nil
             for i = 1, #G.jokers.cards do
                 if G.jokers.cards[i] == card then my_pos = i; break end
             end
-            if G.jokers.cards[my_pos - 1] then mult = mult + card.ability.extra.mult end
-            if G.jokers.cards[my_pos + 1] then mult = mult + card.ability.extra.mult end
+            if context.other_joker == G.jokers.cards[my_pos - 1] then mult = card.ability.extra.mult end
+            if context.other_joker == G.jokers.cards[my_pos + 1] then mult = card.ability.extra.mult end
 
             if mult ~= 0 then
                 return {
@@ -2128,7 +2464,7 @@ create_joker({ -- Gameplan
                         vars = { mult }
                     },
                     mult_mod = mult,
-                    card = card
+                    card = context.other_joker
                 }
             end
         end
@@ -2453,14 +2789,14 @@ create_joker({ -- Head in the Clouds
     unlocked = false,
     check_for_unlock = function(self, args)
         if args.type == 'win_custom' then
-            local handname, level, order = 'High Card', -1, 100
+            local handname, level, order = 'High Card', to_big(-1), 100
             for k, v in pairs(G.GAME.hands) do
                 if v.level > level or (v.level == level and order > v.order) then
                     level = v.level
                     handname = k
                 end
             end
-            if handname == 'High Card' and level > 0 then
+            if handname == 'High Card' and level > to_big(0) then
                 unlock_card(self)
             end
         end
@@ -2468,7 +2804,7 @@ create_joker({ -- Head in the Clouds
     custom_in_pool = function()
         local condition = false
         if G.GAME and G.GAME.hands then
-            if G.GAME.hands['High Card'].level > 1 then condition = true end
+            if G.GAME.hands['High Card'].level > to_big(1) then condition = true end
         end
         return condition
     end,
@@ -2589,12 +2925,14 @@ create_joker({ -- Pawn
     custom_vars = function(self, info_queue, card)
         if G.playing_cards and #G.playing_cards > 0 then
             local rank = math.huge
+            local display_rank = ""
             for _, deck_card in ipairs(G.playing_cards) do
                 if deck_card:get_id() < rank and deck_card.config.center ~= G.P_CENTERS.m_stone then
                     rank = deck_card:get_id()
+                    display_rank = deck_card.base.value
                 end
             end
-            return {vars = {localize(tostring(rank), 'ranks')}}
+            return {vars = {localize(tostring(display_rank), 'ranks')}}
         end
         return {vars = {localize('2', 'ranks')}}
     end,
@@ -2714,8 +3052,11 @@ create_joker({ -- Vandalism
         end
     end,
     calculate = function(self, card, context)
-        if context.stay_flipped and not context.blueprint then
-            big_juice(card)
+        if context.stay_flipped and not context.blueprint and context.to_area == G.hand then
+            -- Does not juice while in booster packs
+            if G.STATE == G.STATES.SELECTING_HAND or G.STATE == G.STATES.DRAW_TO_HAND then
+                big_juice(card)
+            end
         end
         if context.play_cards then
             card.ability.extra.card_list = {}
@@ -2757,7 +3098,25 @@ create_joker({ -- Vandalism
             card.children.back.states.collide.can = false
             card.children.back:set_role({major = card, role_type = 'Glued', draw_major = card})
         end
-    end
+        card.draw_bypass = {floating_sprite = true}
+    end,
+    drawsteps = {
+        {
+            order = 61,
+            func = function(card, layer)
+                if card.config.center.key == 'j_bunc_vandalism' and (card.config.center.discovered or card.bypass_discovery_center) then
+                    card.children.floating_sprite:draw_shader('dissolve', nil, nil, nil, card.children.center, 0, 0)
+                    if card.edition then
+                        for k, v in pairs(G.P_CENTER_POOLS.Edition) do
+                            if card.edition[v.key:sub(3)] and v.shader then
+                                card.children.floating_sprite:draw_shader(v.shader, nil, card.ARGS.send_to_shader, nil, card.children.center, 0, 0)
+                            end
+                        end
+                    end
+                end
+            end
+        }
+    }
 })
 
 create_joker({ -- Protester
@@ -2770,10 +3129,12 @@ create_joker({ -- Protester
         if context.pre_discard then
             local raised_card = nil
             for i = 1, #G.hand.highlighted do
-                if not card.debuff and card.ability.extra.rank < G.hand.highlighted[i].base.nominal and G.hand.cards[i].ability.effect ~= 'Stone Card' then
-                    card.ability.extra.chips = G.hand.highlighted[i].base.nominal * card.ability.extra.chip_mult
-                    card.ability.extra.rank = G.hand.highlighted[i].base.nominal
-                    raised_card = G.hand.highlighted[i]
+                if not card.debuff and card.ability.extra.rank < G.hand.highlighted[i].base.nominal then
+                    if not SMODS.has_no_rank(G.hand.highlighted[i]) and not G.hand.highlighted[i].debuff then
+                        card.ability.extra.chips = G.hand.highlighted[i].base.nominal * card.ability.extra.chip_mult
+                        card.ability.extra.rank = G.hand.highlighted[i].base.nominal
+                        raised_card = G.hand.highlighted[i]
+                    end
                 end
             end
             if raised_card then
@@ -2956,7 +3317,7 @@ create_joker({ -- On Broadway
 
 create_joker({ -- Rasta
     name = 'Rasta', position = 48,
-    vars = {{mult = 20}},
+    vars = {{mult = 12}},
     rarity = 'Common', cost = 5,
     blueprint = true, eternal = true,
     unlocked = false,
@@ -3028,18 +3389,20 @@ create_joker({ -- Cellphone
     calculate = function(self, card, context)
         if context.first_hand_drawn then
             card.ability.extra.active = true
-            local eval = function() return G.GAME.current_round.hands_played == 0 and G.GAME.current_round.discards_used == 0 end
+            local eval = function() return card.ability.extra.active end
             juice_card_until(card, eval, true)
         end
         if context.joker_main and context.scoring_hand then
             card.ability.extra.cards_to_hand = context.scoring_hand
         end
-        if context.press_play and card.ability.extra.active and G.GAME.current_round.hands_played == 0 then
+        if context.bunc_press_play and card.ability.extra.active and G.GAME.current_round.hands_played == 0 then
             forced_message(G.localization.misc.dictionary.bunc_accepted, card, G.C.GREEN)
         end
         if context.after and G.GAME.current_round.hands_played == 0 then
             event({func = function ()
-                card.ability.extra.active = false
+                if G.GAME.current_round.hands_played > 0 then
+                    card.ability.extra.active = false
+                end
                 return true
             end})
         end
@@ -3095,7 +3458,7 @@ create_joker({ -- Bounty Hunter
     unlocked = false,
     check_for_unlock = function(self, args)
         if args.type == 'money' then
-            if G.GAME.dollars < self.config.extra.unlock then
+            if G.GAME.dollars < to_big(self.config.extra.unlock) then
                 unlock_card(self)
             end
         end
@@ -3199,10 +3562,15 @@ create_joker({ -- The Joker
                             event({blocking = false, blockable = false, trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, func = function()
                                 play_sound('tarot2', 0.96, 0.4)
                             return true end})
+                            local destroyed_cards = {}
                             for _, card_to_trash in ipairs(trash_list) do
                                 if not card_to_trash.removed then
                                     card_to_trash:start_dissolve(nil, nil, dissolve_time_fac)
+                                    table.insert(destroyed_cards, card_to_trash)
                                 end
+                            end
+                            if next(destroyed_cards) then
+                                SMODS.calculate_context({remove_playing_cards = true, removed = destroyed_cards})
                             end
                             return true
                         end
@@ -3355,6 +3723,20 @@ create_joker({ -- Domino
 create_joker({ -- Glue Gun
     name = 'Glue Gun', position = 56,
     vars = {{amount = 4}},
+    custom_vars = function (self, info_queue, card)
+
+        info_queue[#info_queue+1] = {set = 'Other', key = 'bunc_linked_group'}
+
+        local active = (G.hand and G.hand.highlighted and (#G.hand.highlighted > 1) and (#G.hand.highlighted <= card.ability.extra.amount)) or false
+        local main_end = {
+            {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
+                {n=G.UIT.C, config={ref_table = self, align = "m", colour = active and G.C.GREEN or G.C.RED, r = 0.05, padding = 0.06}, nodes={
+                    {n=G.UIT.T, config={text = ' '..localize(active and 'k_active' or 'bunc_inactive')..' ',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.9}},
+                }}
+            }}
+        }
+        return {vars = {card.ability.extra.amount}, main_end = main_end}
+    end,
     rarity = 'Uncommon', cost = 4,
     blueprint = false, eternal = false,
     unlocked = true,
@@ -3379,6 +3761,9 @@ create_joker({ -- Glue Gun
 
 create_joker({ -- Taped
     name = 'Taped', custom_atlas = 'bunco_jokers_taped', position = 1,
+    custom_vars = function (self, info_queue, card)
+        info_queue[#info_queue+1] = {set = 'Other', key = 'bunc_linked_group'}
+    end,
     rarity = 'Rare', cost = 6,
     blueprint = false, eternal = true,
     unlocked = true,
@@ -3431,6 +3816,10 @@ create_joker({ -- Taped
 create_joker({ -- Rubber Band Ball
     name = 'Rubber Band Ball', position = 57,
     vars = {{bonus = 1}, {xmult = 1}},
+    custom_vars = function (self, info_queue, card)
+        info_queue[#info_queue+1] = {set = 'Other', key = 'bunc_linked_group'}
+        return {vars = {card.ability.extra.bonus, card.ability.extra.xmult}}
+    end,
     rarity = 'Uncommon', cost = 6,
     blueprint = true, eternal = true, perishable = false,
     unlocked = true,
@@ -3460,6 +3849,11 @@ create_joker({ -- Rubber Band Ball
 create_joker({ -- Headache
     name = 'Headache', custom_atlas = 'bunco_jokers_headache', position = 1,
     vars = {{amount = 4}, {destroyed = 0}},
+    custom_vars = function (self, info_queue, card)
+        info_queue[#info_queue+1] = {set = 'Tag', key = 'tag_bunc_arcade'}
+        info_queue[#info_queue + 1] = {key = 'p_bunc_virtual_mega', set = 'Other', vars = {G.P_CENTERS.p_bunc_virtual_mega.config.choose, G.P_CENTERS.p_bunc_virtual_mega.config.extra}}
+        return {vars = {card.ability.extra.amount, card.ability.extra.destroyed}}
+    end,
     rarity = 'Uncommon', cost = 4,
     blueprint = true, eternal = true,
     unlocked = true,
@@ -3472,12 +3866,59 @@ create_joker({ -- Headache
                 card.ability.extra.destroyed = card.ability.extra.destroyed - card.ability.extra.amount
             end
         end
-    end
+    end,
+    set_sprites = function(self, card, front)
+        if card.config.center.discovered or card.bypass_discovery_center then
+            card.children.floating_sprite = Sprite(card.T.x, card.T.y, card.T.w, card.T.h, G.ASSET_ATLAS['bunc_bunco_jokers_border'], coordinate(1))
+            card.children.floating_sprite.states.hover = card.states.hover
+            card.children.floating_sprite.states.click = card.states.click
+            card.children.floating_sprite.states.drag = card.states.drag
+            card.children.floating_sprite.states.collide.can = false
+            card.children.floating_sprite:set_role({major = card, role_type = 'Glued', draw_major = card})
+        end
+        card.draw_bypass = {floating_sprite = true}
+    end,
+    drawsteps = {
+        {
+            order = 21,
+            func = function(card, layer)
+                if card.config.center.key == 'j_bunc_headache' and (card.config.center.discovered or card.bypass_discovery_center) then
+
+                    local realw, realh = love.window.getMode()
+
+                    card.children.center:draw_shader('bunc_headache', nil, {
+                    [1] = (((card.tilt_var.mx) - realw / 2) * 0.3)   +   ((card.VT.x + G.ROOM.T.x + (card.VT.w / 2)) * G.TILESIZE * G.TILESCALE - realw / 2) * -0.2,
+                    [2] = (((card.tilt_var.my) - realh / 2) * 0.8)   +   ((card.VT.y + G.ROOM.T.y + (card.VT.h / 2)) * G.TILESIZE * G.TILESCALE - realh / 2) * -0.4,
+                    [3] = G.TIMERS.REAL
+                    })
+                end
+            end
+        },
+        {
+            order = 61,
+            func = function(card, layer)
+                if card.config.center.key == 'j_bunc_headache' and (card.config.center.discovered or card.bypass_discovery_center) then
+                    card.children.floating_sprite:draw_shader('dissolve', nil, nil, nil, card.children.center, 0, 0)
+                    if card.edition then
+                        for k, v in pairs(G.P_CENTER_POOLS.Edition) do
+                            if card.edition[v.key:sub(3)] and v.shader then
+                                card.children.floating_sprite:draw_shader(v.shader, nil, card.ARGS.send_to_shader, nil, card.children.center, 0, 0)
+                            end
+                        end
+                    end
+                end
+            end
+        }
+    }
 })
 
 create_joker({ -- Games Collector
     name = 'Games Collector', position = 58,
     vars = {{bonus = 10}, {chips = 0}},
+    custom_vars = function (self, info_queue, card)
+        info_queue[#info_queue+1] = {set = 'Other', key = 'bunc_linked_group'}
+        return {vars = {card.ability.extra.bonus, card.ability.extra.chips}}
+    end,
     rarity = 'Common', cost = 5,
     blueprint = true, eternal = true, perishable = false,
     unlocked = true,
@@ -3837,30 +4278,25 @@ create_joker({ -- Dynasty
 create_joker({ -- Magic Wand
     type = 'Exotic',
     name = 'Magic Wand', position = 8,
-    vars = {{bonus = 0.3}, {xmult = 1}},
+    vars = {{bonus = 3}, {mult = 0}},
     rarity = 'Common', cost = 5,
     blueprint = true, eternal = true, perishable = false,
     unlocked = true,
     calculate = function(self, card, context)
         if context.before and context.poker_hands ~= nil and next(context.poker_hands['bunc_Spectrum']) and not context.blueprint then
-            card.ability.extra.xmult = card.ability.extra.xmult + 0.3
+            card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.bonus
         elseif context.after and context.poker_hands ~= nil and not next(context.poker_hands['bunc_Spectrum']) and not context.blueprint then
-            if card.ability.extra.xmult ~= 1 then
-                card.ability.extra.xmult = 1
+            if card.ability.extra.mult ~= 0 then
+                card.ability.extra.mult = 0
 
                 forced_message(localize('k_reset'), card, G.C.RED)
             end
         end
 
         if context.joker_main then
-            if card.ability.extra.xmult ~= 1 then
+            if card.ability.extra.mult ~= 0 then
                 return {
-                    message = localize {
-                        type = 'variable',
-                        key = 'a_xmult',
-                        vars = { card.ability.extra.xmult }
-                    },
-                    Xmult_mod = card.ability.extra.xmult,
+                    mult = card.ability.extra.mult,
                     card = card
                 }
             end
@@ -4038,12 +4474,108 @@ create_joker({ -- Rigoletto
 
 -- Tarots
 
+local thoth_unlock_amount = 100
+
+function create_UIBox_thoth_tarots_unlock(card_centers)
+    G.your_collection = CardArea(
+        0,
+        0,
+        2.85 * G.CARD_W,
+        0.75 * G.CARD_H,
+        {card_limit = 4, type = 'title', highlight_limit = 0}
+    )
+
+    for i, card_center in ipairs(card_centers) do
+        local card = Card(G.your_collection.T.x + G.your_collection.T.w/2 - G.CARD_W/2, G.your_collection.T.y, G.CARD_W, G.CARD_H, G.P_CARDS.empty, card_center, {bypass_discovery_center = true, bypass_discovery_ui = true})
+        card.states.click.can = false
+        card.states.visible = false
+        G.your_collection:emplace(card)
+        event({
+            timer = 'REAL',
+            blockable = false,
+            blocking = false,
+            trigger = 'after',
+            delay = 0.1 * i,
+            func = (function() 
+                card:start_materialize({G.C.SECONDARY_SET.Tarot})
+            return true end)
+        })
+    end
+
+    local criteria = {}
+
+    localize{
+        type = 'descriptions',
+        key = 'deck_locked_discover',
+        set = "Other",
+        nodes = criteria,
+        vars = {thoth_unlock_amount}
+    }
+
+    local criteria_cols = {}
+    for k, v in ipairs(criteria) do
+        if k > 1 then criteria_cols[#criteria_cols+1] = {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={}} end
+        criteria_cols[#criteria_cols+1] = {n=G.UIT.R, config={align = "cm", padding = 0}, nodes=v}
+    end
+
+    local t = create_UIBox_generic_options({padding = 0,back_label = localize('b_continue'), no_pip = true, snap_back = true, back_func = 'continue_unlock', minw = 4.5, contents = {
+        {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+            {n=G.UIT.R, config={align = "cm", padding = 0.1}, nodes={
+                {n=G.UIT.R, config={align = "cm", padding = 0.2}, nodes={
+                    {n=G.UIT.O, config={object = DynaText({string = {{string = localize('bunc_thoth_tarots'), suffix = ' '..localize('k_unlocked_ex'), outer_colour = G.C.UI.TEXT_LIGHT}}, colours = {G.C.SECONDARY_SET.Tarot},shadow = true, rotate = true, float = true, scale = 0.7, pop_in = 0.1})}}
+                }},
+                {n=G.UIT.R, config={align = "cm", padding = 0.3, draw_layer = 1}, nodes={
+                    {n=G.UIT.O, config={object = G.your_collection}}
+                }},
+                {n=G.UIT.R, config={align = "cm", padding = 0, draw_layer = 2}, nodes={
+                    {n=G.UIT.R, config={align = "cm", padding = 0.0}, nodes={
+                        {n=G.UIT.R, config={align = "cm", padding = 0.05, emboss = 0.05, colour = G.C.WHITE, r = 0.1}, nodes={
+                            {n=G.UIT.R, config={align = "cm", padding = 0.05, emboss = 0.05, colour = G.C.WHITE, r = 0.1}, nodes={
+                                {n=G.UIT.R, config={align = "cm", padding = 0}, nodes=criteria_cols}
+                            }}
+                        }}
+                    }}
+                }}
+            }}
+        }}
+        }})
+    return t
+end
+
+-- SMODS.Keybind{
+--     key_pressed = 'l',
+--     event = 'pressed',
+--     action = function(self)
+--         G.E_MANAGER:add_event(Event({
+--             trigger = 'immediate',
+--             no_delete = true,
+--             func = (function()
+--                 if not G.OVERLAY_MENU then 
+--                     G.SETTINGS.paused = true
+--                     G.FUNCS.overlay_menu{
+--                         definition = create_UIBox_thoth_tarots_unlock({
+--                             G.P_CENTERS['c_bunc_adjustment'],
+--                             G.P_CENTERS['c_bunc_art'],
+--                             G.P_CENTERS['c_bunc_universe'],
+--                             G.P_CENTERS['c_bunc_lust']
+--                         }),
+--                     }
+--                     play_sound('foil1', 0.7, 0.3)
+--                     play_sound('gong', 1.4, 0.15)
+--                     return true
+--                 end
+--             end)
+--         }), 'unlock')
+--     end
+-- }
+
 SMODS.Atlas({key = 'bunco_tarots', path = 'Consumables/Tarots.png', px = 71, py = 95})
 SMODS.Atlas({key = 'bunco_tarots_exotic', path = 'Consumables/TarotsExotic.png', px = 71, py = 95})
 
 SMODS.Consumable{ -- Adjustment
     set = 'Tarot', atlas = 'bunco_tarots',
     key = 'adjustment',
+    --unlocked = false,
 
     effect = 'Enhance',
     config = {mod_conv = 'm_bunc_cracker', max_highlighted = 2},
@@ -4056,12 +4588,16 @@ SMODS.Consumable{ -- Adjustment
     loc_vars = function(self, info_queue)
         info_queue[#info_queue+1] = G.P_CENTERS.m_bunc_cracker
         return {vars = {self.config.max_highlighted, localize{type = 'name_text', set = 'Enhanced', key = self.config.mod_conv}}}
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return {vars = {thoth_unlock_amount}}
     end
 }
 
 SMODS.Consumable{ -- The Art
     set = 'Tarot', atlas = 'bunco_tarots',
     key = 'art',
+    --unlocked = false,
 
     effect = 'Enhance',
     config = {mod_conv = 'm_bunc_copper', max_highlighted = 2},
@@ -4074,12 +4610,16 @@ SMODS.Consumable{ -- The Art
     loc_vars = function(self, info_queue)
         info_queue[#info_queue+1] = G.P_CENTERS.m_bunc_copper
         return {vars = {self.config.max_highlighted, localize{type = 'name_text', set = 'Enhanced', key = self.config.mod_conv}}} 
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return {vars = {thoth_unlock_amount}}
     end
 }
 
 SMODS.Consumable{ -- The Universe
     set = 'Tarot', atlas = 'bunco_tarots',
     key = 'universe',
+    --unlocked = false,
 
     config = {max_highlighted = 3},
     pos = coordinate(3),
@@ -4090,6 +4630,9 @@ SMODS.Consumable{ -- The Universe
 
     loc_vars = function(self, info_queue)
         return {vars = {self.config.max_highlighted}}
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return {vars = {thoth_unlock_amount}}
     end,
 
     can_use = function(self, card)
@@ -4138,6 +4681,7 @@ SMODS.Consumable{ -- The Universe
 SMODS.Consumable{ -- Lust
     set = 'Tarot', atlas = 'bunco_tarots',
     key = 'lust',
+    --unlocked = false,
 
     config = {bonus = 1, limit = 52},
     pos = coordinate(4),
@@ -4152,6 +4696,9 @@ SMODS.Consumable{ -- Lust
             reward = #G.hand.cards * self.config.bonus
         end
         return {vars = {self.config.bonus, self.config.limit, (reward <= self.config.limit) and reward or self.config.limit}}
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return {vars = {thoth_unlock_amount}}
     end,
 
     can_use = function(self, card)
@@ -4428,6 +4975,23 @@ function link_cards(cards, source, ignore_groups)
     end
 end
 
+SMODS.DrawStep({
+    key = 'linked_group',
+    order = 500,
+    func = function(card, layer)
+        if card.ability.group and card.area ~= G.deck then
+            if not card.children.link then
+                local variant = card.ability.group.id
+                variant = 1 + (variant - 1) % 5
+                card.children.link = Sprite(card.T.x, card.T.y, card.T.w, card.T.h, G.ASSET_ATLAS['bunc_bunco_link'], {x = variant - 1, y = 0})
+                card.children.link.states.visible = false
+            end
+            card.children.link:draw_shader('dissolve', nil, nil, nil, card.children.center, 0, 0)
+            card.children.link.role.draw_major = card
+        end
+    end
+})
+
 -- Pseudoinjections for Polyminoes
 
 local original_draw_from_deck_to_hand = G.FUNCS.draw_from_deck_to_hand
@@ -4587,6 +5151,9 @@ SMODS.Consumable{ -- The I
     key = 'the_i',
 
     loc_vars = function(self, info_queue, card)
+
+        info_queue[#info_queue+1] = {set = 'Other', key = 'bunc_linked_group'}
+
         local example = {
             {'S_2', true},
             {'S_6', true},
@@ -4648,6 +5215,9 @@ SMODS.Consumable{ -- The O
     key = 'the_o',
 
     loc_vars = function(self, info_queue, card)
+
+        info_queue[#info_queue+1] = {set = 'Other', key = 'bunc_linked_group'}
+
         local example = {
             {'D_Q', true},
             {'D_Q', true},
@@ -4725,6 +5295,9 @@ SMODS.Consumable{ -- The T
     key = 'the_t',
 
     loc_vars = function(self, info_queue, card)
+
+        info_queue[#info_queue+1] = {set = 'Other', key = 'bunc_linked_group'}
+
         local example = {
             {'H_7', true},
             {'C_7', true},
@@ -4812,6 +5385,9 @@ SMODS.Consumable{ -- The S
     key = 'the_s',
 
     loc_vars = function(self, info_queue, card)
+
+        info_queue[#info_queue+1] = {set = 'Other', key = 'bunc_linked_group'}
+
         local example = {
             {'D_2', true},
             {'C_2', true},
@@ -4901,6 +5477,9 @@ SMODS.Consumable{ -- The Z
     key = 'the_z',
 
     loc_vars = function(self, info_queue, card)
+
+        info_queue[#info_queue+1] = {set = 'Other', key = 'bunc_linked_group'}
+
         local example = {
             {'S_4', true},
             {'S_A', true},
@@ -4987,6 +5566,9 @@ SMODS.Consumable{ -- The J
     key = 'the_j',
 
     loc_vars = function(self, info_queue, card)
+
+        info_queue[#info_queue+1] = {set = 'Other', key = 'bunc_linked_group'}
+
         local example = {
             {'D_Q', true},
             {'H_Q', true},
@@ -5086,6 +5668,9 @@ SMODS.Consumable{ -- The L
     key = 'the_l',
 
     loc_vars = function(self, info_queue, card)
+
+        info_queue[#info_queue+1] = {set = 'Other', key = 'bunc_linked_group'}
+
         local example = {
             {'S_2', true},
             {'S_3', true},
@@ -5181,6 +5766,9 @@ SMODS.Consumable{ -- The /
     key = 'the_slash',
 
     loc_vars = function(self, info_queue, card)
+
+        info_queue[#info_queue+1] = {set = 'Other', key = 'bunc_linked_group'}
+
         local example = {
             {'S_2', true},
             {'C_T', true},
@@ -5273,6 +5861,10 @@ SMODS.Consumable{ -- The /
 SMODS.Consumable{ -- The 8
     set = 'Spectral', atlas = 'bunco_polyminoes',
     key = 'the_8',
+
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = {set = 'Other', key = 'bunc_linked_group'}
+    end,
 
     hidden = true,
     soul_rate = 0.002,
@@ -5537,33 +6129,75 @@ SMODS.PokerHandPart{ -- Spectrum base (Referenced from SixSuits)
     key = 'spectrum',
     func = function(hand)
         local suits = {}
+
+        -- determine suits to be used
         for _, v in ipairs(SMODS.Suit.obj_buffer) do
-            suits[v] = 0
+            suits[v] = 1
         end
+        -- < 5 hand cant be a spectrum
         if #hand < 5 then return {} end
+
+        local nonwilds = {}
         for i = 1, #hand do
-            if hand[i].ability.name ~= 'Wild Card' then
-                for k, v in pairs(suits) do
-                    if hand[i]:is_suit(k, nil, true) and v == 0 then
-                        suits[k] = v + 1; break
-                    end
+            local cardsuits = {}
+            for _, v in ipairs(SMODS.Suit.obj_buffer) do
+                -- determine table of suits for each card (for future faster calculations)
+                if hand[i]:is_suit(v, nil, true) then
+                    table.insert(cardsuits, v)
                 end
             end
-        end
-        for i = 1, #hand do
-            if hand[i].ability.name == 'Wild Card' then
-                for k, v in pairs(suits) do
-                    if hand[i]:is_suit(k, nil, true) and v == 0 then
-                        suits[k] = v + 1; break
-                    end
-                end
+
+            -- if somehow no suits: spectrum is impossible
+            if #cardsuits == 0 then
+                return {}
+            -- if only 1 suit: can be handled immediately
+            elseif #cardsuits == 1 then
+                -- if suit is already present, not a spectrum, otherwise remove suit from "not yet used suits"
+                if suits[cardsuits[1]] == 0 then return {} end
+                suits[cardsuits[1]] = 0
+            -- add all cards with 2-4 suits to a table to be looked at
+            elseif #cardsuits < 5 then
+                table.insert(nonwilds, cardsuits)
             end
         end
-        local num_suits = 0
-        for _, v in pairs(suits) do
-            if v > 0 then num_suits = num_suits + 1 end
+
+        -- recursive function for iterating over combinations
+        local isSpectrum 
+        isSpectrum = function(i, remaining)
+            -- traversed all the cards, found spectrum
+            if i == #nonwilds + 1 then
+                return true
+            end
+
+            -- copy remaining suits
+            local newremaining = {}
+            for k, v in pairs(remaining) do
+                newremaining[k] = v
+            end
+
+            -- for every suit of the current card: 
+            for _, suit in ipairs(nonwilds[i]) do
+                -- do nothing if suit has already been used
+                if remaining[suit] == 1 then
+                    -- use up suit on this card and check next card
+                    newremaining[suit] = 0
+                    if isSpectrum(i + 1, newremaining) then
+                        return true
+                    end
+                    -- reset suit before continuing
+                    newremaining[suit] = 1
+                end
+            end
+
+            return false
         end
-        return (num_suits >= 5) and {hand} or {}
+
+        -- begin iteration from first (not already considered) card
+        if isSpectrum(1, suits) then
+            return {hand}
+        else
+            return {}
+        end
     end
 }
 
@@ -5572,7 +6206,7 @@ SMODS.PokerHand{ -- Spectrum (Referenced from SixSuits)
     visible = false,
     chips = 50,
     mult = 6,
-    l_chips = 15,
+    l_chips = 20,
     l_mult = 2,
     example = {
         { 'S_2',    true },
@@ -5591,8 +6225,8 @@ SMODS.PokerHand{ -- Straight Spectrum (Referenced from SixSuits)
     visible = false,
     chips = 120,
     mult = 10,
-    l_chips = 30,
-    l_mult = 3,
+    l_chips = 45,
+    l_mult = 4,
     example = {
         { 'S_Q',    true },
         { 'bunc_FLEURON_J', true },
@@ -5626,8 +6260,8 @@ SMODS.PokerHand{ -- Spectrum House (Referenced from SixSuits)
     visible = false,
     chips = 150,
     mult = 15,
-    l_chips = 35,
-    l_mult = 3,
+    l_chips = 40,
+    l_mult = 4,
     example = {
         { 'S_Q',    true },
         { 'bunc_FLEURON_Q', true },
@@ -5647,8 +6281,8 @@ SMODS.PokerHand{ -- Spectrum Five (Referenced from SixSuits)
     visible = false,
     chips = 180,
     mult = 18,
-    l_chips = 25,
-    l_mult = 2,
+    l_chips = 55,
+    l_mult = 3,
     example = {
         { 'S_7',    true },
         { 'D_7', true },
@@ -5671,12 +6305,8 @@ SMODS.PokerHandPart{ -- Deal base
             table.insert(current_ranks, hand[i]:get_id())
         end
 
-        if G.jokers ~= nil then
-            for _, v in ipairs(G.jokers.cards) do
-                if v.config.center.key == 'j_bunc_registration_plate' then
-                    table.insert(deals, v.ability.extra.ranks)
-                end
-            end
+        for _, v in ipairs(SMODS.find_card("j_bunc_registration_plate")) do
+            table.insert(deals, v.ability.extra.ranks)
         end
 
         local count1 = {}
@@ -5967,12 +6597,27 @@ SMODS.Blind{ -- The Knoll
     boss = {min = 4},
 
     stay_flipped = function(self, area, card)
-        if not G.GAME.blind.disabled and card.area ~= G.jokers and
-        G.GAME.current_round.hands_played == 0 and G.GAME.current_round.discards_used == 0 then
-            if G.GAME.dollars > 5 then
+        if not G.GAME.blind.disabled and (area == G.hand) and
+        G.GAME.current_round.hands_played == 0 and G.GAME.current_round.discards_used == 0 and #(G.GAME.Knoll or {}) < G.hand.config.card_limit then
+            if G.GAME.dollars > to_big(5) then
+                G.GAME.Knoll = G.GAME.Knoll or {}
+                table.insert(G.GAME.Knoll, card)
                 card:set_debuff(true)
             end
         end
+    end,
+    recalc_debuff = function(self, card, from_blind)
+        if not G.GAME.blind.disabled and G.GAME.Knoll then
+            for _, debuffed_card in ipairs(G.GAME.Knoll) do
+                if debuffed_card == card then
+                    return true
+                end
+            end
+            return false
+        end
+    end,
+    defeat = function(self)
+        G.GAME.Knoll = nil
     end,
 
     boss_colour = HEX('6d8f2d'),
@@ -5989,8 +6634,8 @@ SMODS.Blind{ -- The Stone
         if not reset then
             G.GAME.blind.original_chips = G.GAME.blind.chips
         end
-        if not reset and not G.GAME.blind.disabled and G.GAME.dollars >= 10 then
-            local final_chips = (G.GAME.blind.chips / G.GAME.blind.mult) * (math.floor(G.GAME.dollars / 10) + G.GAME.blind.mult)
+        if not reset and not G.GAME.blind.disabled and to_big(G.GAME.dollars) >= to_big(10) then
+            local final_chips = (G.GAME.blind.chips / G.GAME.blind.mult) * (math.floor(to_number(G.GAME.dollars) / 10) + G.GAME.blind.mult)
             local chip_mod -- iterate over ~120 ticks
             if type(G.GAME.blind.chips) ~= 'table' then
                 chip_mod = math.ceil((final_chips - G.GAME.blind.chips) / 120)
@@ -6162,11 +6807,15 @@ SMODS.Blind{ -- The Wind
     boss = {min = 6},
 
     drawn_to_hand = function(self)
-        if not G.GAME.blind.disabled and G.GAME.current_round.hands_played == 0 and G.GAME.current_round.discards_used == 0 then
+        if not G.GAME.blind.disabled and G.GAME.current_round.hands_played == 0 and G.GAME.current_round.discards_used == 0 and not G.GAME.bunc_bl_wind_flag then
             G.GAME.blind.ready = true
             if G.jokers and G.jokers.cards[1] then big_juice(G.jokers.cards[1]) end
             G.GAME.blind:wiggle()
+            G.GAME.bunc_bl_wind_flag = true
         end
+    end,
+    defeat = function(self)
+        G.GAME.bunc_bl_wind_flag = nil
     end,
 
     boss_colour = HEX('a6cdef'),
@@ -6190,9 +6839,15 @@ SMODS.Blind{ -- The Prince
             end
             G.GAME.blind:wiggle()
         end
-        if not G.GAME.blind.disabled and G.GAME.current_round.hands_played > 0 then
+        if not G.GAME.blind.disabled and G.GAME.bunc_bl_prince_flag then
             G.GAME.blind:disable()
         end
+    end,
+    press_play = function(self)
+        G.GAME.bunc_bl_prince_flag = true
+    end,
+    defeat = function(self)
+        G.GAME.bunc_bl_prince_flag = nil
     end,
 
     boss_colour = HEX('f31745'),
@@ -6275,7 +6930,7 @@ SMODS.Blind{ -- Chartreuse Crown
             card.base.suit == ('Hearts') or
             card.base.suit == ('Clubs') or
             card.base.suit == ('Diamonds') then
-                if card.ability.name ~= 'Stone Card' then
+                if not SMODS.has_no_suit(card) then
                     card:set_debuff(true)
                     return true
                 end
@@ -6291,7 +6946,7 @@ SMODS.Blind{ -- Chartreuse Crown
             for k, v in pairs(G.playing_cards) do
                 if (v.base.suit == ('bunc_Fleurons') or
                 v.base.suit == ('bunc_Halberds')) and
-                v.ability.name ~= 'Stone Card' then
+                not SMODS.has_no_suit(v) then
                     exotic_amount = exotic_amount + 1
                 end
             end
@@ -6365,7 +7020,7 @@ SMODS.Blind{ -- Indigo Tower
     dollars = 8,
 
     recalc_debuff = function(self, card, from_blind)
-        if not G.GAME.blind.disabled and card.area ~= G.jokers then
+        if not G.GAME.blind.disabled and card.area ~= G.jokers and card.area ~= G.consumeables then
             if not card.ability.played_this_ante then
                 card:set_debuff(true)
                 return true
@@ -6875,7 +7530,12 @@ SMODS.Tag{ -- Eternal
 
     apply = function(self, tag, context)
         if context.type == self.config.type then
-            if context.card and not context.card.ability.eternal and not context.card.ability.perishable and context.card.ability.set == 'Joker' then
+            if context.card and 
+                not context.card.ability.eternal and 
+                not context.card.ability.perishable and 
+                context.card.ability.set == 'Joker' and
+                context.card.config.center.eternal_compat
+            then
                 local lock = tag.ID
                 G.CONTROLLER.locks[lock] = true
                 tag:yep('+', G.C.RED, function()
@@ -6909,7 +7569,12 @@ SMODS.Tag{ -- Perishable
 
     apply = function(self, tag, context)
         if context.type == self.config.type then
-            if context.card and not context.card.ability.perishable and not context.card.ability.eternal and context.card.ability.set == 'Joker' then
+            if context.card and 
+                not context.card.ability.perishable and 
+                not context.card.ability.eternal and 
+                context.card.ability.set == 'Joker' and
+                context.card.config.center.perishable_compat
+            then
                 local lock = tag.ID
                 G.CONTROLLER.locks[lock] = true
                 tag:yep('+', G.C.RED, function()
@@ -7112,6 +7777,7 @@ SMODS.Edition{
     sound = {sound = 'bunc_glitter', per = 1.2, vol = 0.4},
     in_shop = true,
     weight = 9,
+    extra_cost = 3,
     get_weight = function(self)
         return G.GAME.edition_rate * self.weight
     end,
@@ -7128,6 +7794,7 @@ SMODS.Edition{
     sound = {sound = 'bunc_fluorescent', per = 1.2, vol = 0.4},
     in_shop = true,
     weight = 18,
+    extra_cost = 1,
     get_weight = function(self)
         return G.GAME.edition_rate * self.weight
     end,
@@ -7217,7 +7884,8 @@ SMODS.Voucher{ -- Cups 'n' Balls
     key = 'cups_n_balls',
 
     redeem = function(self)
-        change_booster_amount(1)
+        G.GAME.modifiers.extra_boosters = (G.GAME.modifiers.extra_boosters or 0) + 1
+        SMODS.add_booster_to_shop()
     end,
 
     unlocked = true,
@@ -7595,6 +8263,18 @@ for i = 1, 4 do -- Virtual
     }
 end
 
+SMODS.Sound({
+    key = 'music_virtual',
+    path = 'music_virtual.ogg',
+    select_music_track = function(self)
+        local booster = G.pack_cards and G.pack_cards.cards and SMODS.OPENED_BOOSTER
+
+        if booster and booster.config.center_key:find('p_bunc_virtual') then
+            return 'bunc_music_virtual'
+        end
+    end
+})
+
 -- Enhancements
 
 SMODS.Atlas({key = 'bunco_enhancements', path = 'Enhancements/Enhancements.png', px = 71, py = 95})
@@ -7678,14 +8358,14 @@ SMODS.Enhancement({ -- Copper
             end
 
             local last_in_streak = true
-            if context.scoring_hand[card_position + 1] and context.scoring_hand[card_position + 1].config.center == card.config.center then
+            if context.scoring_hand[card_position + 1] and context.scoring_hand[card_position + 1].config.center == card.config.center and not (context.scoring_hand[card_position + 1].debuff) then
                 last_in_streak = false
             end
 
             if last_in_streak then
 
                 local streak = false
-                if context.scoring_hand[card_position - 1] and context.scoring_hand[card_position - 1].config.center == card.config.center then
+                if context.scoring_hand[card_position - 1] and context.scoring_hand[card_position - 1].config.center == card.config.center and not (context.scoring_hand[card_position - 1].debuff) then
                     streak = true
                 end
 
@@ -7700,7 +8380,8 @@ SMODS.Enhancement({ -- Copper
 
                                 while true do
                                     if context.scoring_hand[card_position - i]
-                                    and context.scoring_hand[card_position - i].config.center == card.config.center then
+                                    and context.scoring_hand[card_position - i].config.center == card.config.center
+                                    and not (context.scoring_hand[card_position - i].debuff) then
                                         table.insert(streak_cards, context.scoring_hand[card_position - i])
                                     else
                                         break
