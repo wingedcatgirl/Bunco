@@ -6925,7 +6925,7 @@ SMODS.Blind{ -- Indigo Tower
     dollars = 8,
 
     recalc_debuff = function(self, card, from_blind)
-        if not G.GAME.blind.disabled and card.area ~= G.jokers then
+        if not G.GAME.blind.disabled and card.area ~= G.jokers and card.area ~= G.consumeables then
             if not card.ability.played_this_ante then
                 card:set_debuff(true)
                 return true
