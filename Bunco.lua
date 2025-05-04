@@ -2203,9 +2203,27 @@ create_joker({ -- Bierdeckel
     end
 })
 
+local bunc_registration_plate_refresh = function (card)
+    -- TODO: Make it so a card cannot be randomly chosen twice
+    local card_list = {}
+    for i = 1, 5 do
+        local index = math.random(#G.deck.cards)
+        table.insert(card_list, G.deck.cards[index])
+    end
+
+    card.ability.extra.combination = {}
+    for i = 1, 5 do
+        table.insert(card.ability.extra.combination, card_list[i].base.value)
+    end
+
+    card.ability.extra.ranks = {}
+    for i = 1, 5 do
+        table.insert(card.ability.extra.ranks, card_list[i]:get_id())
+    end
+end
 create_joker({ -- Registration Plate
     name = 'Registration Plate', position = 26,
-    vars = {{combination = ''}, {card_list = {}}, {ranks = {}}},
+    vars = {{combination = {"2", "3", "4", "5", "6"}}, {ranks = {}}},
     rarity = 'Rare', cost = 8,
     blueprint = false, eternal = true,
     unlocked = false,
@@ -2216,58 +2234,23 @@ create_joker({ -- Registration Plate
         end
     end,
     custom_vars = function(self, info_queue, card)
-        local vars
-        if card.ability.extra.combination == '' then
-            vars = {'2, 3, 4, 5 '..G.localization.misc.dictionary.bunc_word_and..' 6'}
-        else
-            vars = {card.ability.extra.combination}
+        local vars = {}
+        for i = 1, #card.ability.extra.combination do
+            table.insert(vars, localize(card.ability.extra.combination[i], 'ranks'))
         end
         return {vars = vars}
     end,
-    add = function(self, card)
-        card.ability.extra.card_list = {}
-
-        for i = 1, 5 do
-            local index = math.random(#G.deck.cards)
-            table.insert(card.ability.extra.card_list, G.deck.cards[index])
+    add = function(self, card, from_debuff)
+        if from_debuff then
+            return
         end
 
-        local combination = {}
-
-        for i = 1, 5 do
-            table.insert(combination, card.ability.extra.card_list[i].base.value)
-        end
-
-        card.ability.extra.ranks = {}
-
-        for i = 1, 5 do
-            table.insert(card.ability.extra.ranks, card.ability.extra.card_list[i]:get_id())
-        end
-
-        card.ability.extra.combination = table.concat(combination, ", ", 1, 4).." "..G.localization.misc.dictionary.bunc_word_and.." "..table.concat(combination, " ", 5)
+        bunc_registration_plate_refresh(card)
     end,
     calculate = function(self, card, context)
         if context.end_of_round and #G.deck.cards ~= 0 then
-            card.ability.extra.card_list = {}
 
-            for i = 1, 5 do
-                local index = math.random(#G.deck.cards)
-                table.insert(card.ability.extra.card_list, G.deck.cards[index])
-            end
-
-            local combination = {}
-
-            for i = 1, 5 do
-                table.insert(combination, card.ability.extra.card_list[i].base.value)
-            end
-
-            card.ability.extra.ranks = {}
-
-            for i = 1, 5 do
-                table.insert(card.ability.extra.ranks, card.ability.extra.card_list[i]:get_id())
-            end
-
-            card.ability.extra.combination = table.concat(combination, ", ", 1, 4).." "..G.localization.misc.dictionary.bunc_word_and.." "..table.concat(combination, " ", 5)
+            bunc_registration_plate_refresh(card)
         end
     end
 })
@@ -6227,12 +6210,8 @@ SMODS.PokerHandPart{ -- Deal base
             table.insert(current_ranks, hand[i]:get_id())
         end
 
-        if G.jokers ~= nil then
-            for _, v in ipairs(G.jokers.cards) do
-                if v.config.center.key == 'j_bunc_registration_plate' then
-                    table.insert(deals, v.ability.extra.ranks)
-                end
-            end
+        for _, v in ipairs(SMODS.find_card("j_bunc_registration_plate")) do
+            table.insert(deals, v.ability.extra.ranks)
         end
 
         local count1 = {}
