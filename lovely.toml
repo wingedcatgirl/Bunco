@@ -1565,7 +1565,7 @@ position = 'after'
 match_indent = true
 payload = '''
 
-G.GAME.booster_packs_opened = G.GAME.booster_packs_opened + 1
+    G.GAME.booster_packs_opened = G.GAME.booster_packs_opened + 1
 
 '''
 
@@ -2509,6 +2509,7 @@ else
 '''
 
 # Info queue for consumables 2/2
+# Complicated regex just matches the first 'end' after the above patch's pattern
 [[patches]]
 [patches.regex]
 target = 'functions/common_events.lua'
@@ -2723,8 +2724,8 @@ position = 'after'
 match_indent = true
 payload = '''
 
-G.GAME.last_booster_pack = self
-G.GAME.rerolled_pack = self.rerolled
+    G.GAME.last_booster_pack = self
+    G.GAME.rerolled_pack = self.rerolled
 
 '''
 
@@ -2735,7 +2736,7 @@ target = 'card.lua'
 pattern = 'if self.ability.set == "Booster" then'
 position = 'after'
 match_indent = true
-payload = '''if not G.GAME.rerolled_pack then'''
+payload = '''   if not G.GAME.rerolled_pack then'''
 
 # Shell Game (6/10) (UNSTABLE)
 [[patches]]
@@ -3229,9 +3230,9 @@ end
 [[patches]]
 [patches.regex]
 target = 'functions/state_events.lua'
-pattern = 'end\n(.*)\}\)\)\n(.*)end\n(.*)end'
+pattern = 'end\n(.*)\}\)\)\n(.*)end\n(?<indent>[\t ]*)(.*)end'
 position = "after"
-match_indent = true
+line_prepend = "$indent"
 payload = '''
 
 if G.hand.crackers_highlighted and #G.hand.crackers_highlighted >= 1 then
