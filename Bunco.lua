@@ -2446,15 +2446,15 @@ create_joker({ -- Gameplan
         end
     end,
     calculate = function(self, card, context)
-        if context.joker_main then
+        if context.other_joker then
             local mult = 0
 
             local my_pos = nil
             for i = 1, #G.jokers.cards do
                 if G.jokers.cards[i] == card then my_pos = i; break end
             end
-            if G.jokers.cards[my_pos - 1] then mult = mult + card.ability.extra.mult end
-            if G.jokers.cards[my_pos + 1] then mult = mult + card.ability.extra.mult end
+            if context.other_joker == G.jokers.cards[my_pos - 1] then mult = card.ability.extra.mult end
+            if context.other_joker == G.jokers.cards[my_pos + 1] then mult = card.ability.extra.mult end
 
             if mult ~= 0 then
                 return {
@@ -2464,7 +2464,7 @@ create_joker({ -- Gameplan
                         vars = { mult }
                     },
                     mult_mod = mult,
-                    card = card
+                    card = context.other_joker
                 }
             end
         end
