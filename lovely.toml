@@ -392,31 +392,31 @@ if (_c.set == 'Default' or _c.set == 'Enhanced') and card and card.ability and t
     localize{type = 'other', key = 'bunc_temporary_extra_chips', nodes = desc_nodes, vars = {card.ability.temporary_extra_chips}}
 end'''
 
-# Linked cards drawing 1/4
-[[patches]]
-[patches.pattern]
-target = "game.lua"
-pattern = "-- removed first hand drawn context"
-position = "before"
-match_indent = true
-payload = '''
+## These don't seem to be needed as of SMOD 1413a. Wouldn't be surprised if it changes again.
 
-G.E_MANAGER:add_event(Event({func = function()
+# # Linked cards drawing 1/4
+# [[patches]]
+# [patches.pattern]
+# target = "game.lua"
+# pattern = "if G.GAME.current_round.hands_played == 0 and"
+# position = "before"
+# match_indent = true
+# payload = '''
 
-'''
+# G.E_MANAGER:add_event(Event({func = function()
 
-# Linked cards drawing 2/4
-[[patches]]
-[patches.regex]
-target = "game.lua"
-pattern = 'drawn_to_hand\(\)\n(.*)return true\n(.*)end\n(.*)'
-position = "after"
-match_indent = true
-payload = '''
+# '''
 
-return true end}))
-
-'''
+# # Linked cards drawing 2/4
+# [[patches]]
+# [patches.regex]
+# target = "game.lua"
+# pattern = '(?<indent>[\t ]*).*drawn_to_hand\(\)\n(.*)return true\n(.*)end\n(.*)\n'
+# position = "after"
+# line_prepend = "$indent"
+# payload = '''
+# return true end}))
+# '''
 
 # Linked cards drawing 3/4
 [[patches]]
