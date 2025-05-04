@@ -465,7 +465,13 @@ SMODS.Consumable:take_ownership('eris', {
 -- Fixed sprites
 
 SMODS.Atlas({key = 'bunco_resprites_jokers', path = 'Resprites/Jokers.png', px = 71, py = 95})
-SMODS.Atlas({key = 'bunco_resprites_consumables', path = 'Resprites/Consumables.png', px = 71, py = 95})
+SMODS.Atlas({key = 'bunco_resprites_tarots', path = 'Resprites/Tarots.png', px = 71, py = 95})
+SMODS.Atlas({key = 'bunco_resprites_planets', path = 'Resprites/Planets.png', px = 71, py = 95})
+SMODS.Atlas({key = 'bunco_resprites_spectrals', path = 'Resprites/Spectrals.png', px = 71, py = 95})
+
+function use_fixed_sprite_atlas()
+    return config.fixes_sprites and not next(SMODS.find_mod("malverk"))
+end
 
 if config.fixed_sprites then
 
@@ -475,7 +481,7 @@ if config.fixed_sprites then
 
     G.C.SUITS = G.C["SO_" .. (G.SETTINGS.colourblind_option and 2 or 1)]
 
-    if not (SMODS.Mods["malverk"] or {}).can_load then
+    if not next(SMODS.find_mod("malverk")) then
 
         -- Jokers
 
@@ -553,76 +559,161 @@ if config.fixed_sprites then
 
         SMODS.Consumable:take_ownership('fool', {
             pos = coordinate(1),
-            atlas = 'bunco_resprites_consumables'
+            atlas = 'bunco_resprites_tarots'
         })
 
         SMODS.Consumable:take_ownership('lovers', {
             pos = coordinate(2),
-            atlas = 'bunco_resprites_consumables'
+            atlas = 'bunco_resprites_tarots'
         })
 
         SMODS.Consumable:take_ownership('chariot', {
             pos = coordinate(3),
-            atlas = 'bunco_resprites_consumables'
+            atlas = 'bunco_resprites_tarots'
         })
 
         SMODS.Consumable:take_ownership('wheel_of_fortune', {
             pos = coordinate(4),
-            atlas = 'bunco_resprites_consumables'
+            atlas = 'bunco_resprites_tarots'
         })
 
         SMODS.Consumable:take_ownership('tower', {
             pos = coordinate(5),
-            atlas = 'bunco_resprites_consumables'
+            atlas = 'bunco_resprites_tarots'
         })
 
         SMODS.Consumable:take_ownership('moon', {
             pos = coordinate(6),
-            atlas = 'bunco_resprites_consumables'
+            atlas = 'bunco_resprites_tarots'
         })
 
         SMODS.Consumable:take_ownership('world', {
             pos = coordinate(7),
-            atlas = 'bunco_resprites_consumables'
+            atlas = 'bunco_resprites_tarots'
         })
 
         SMODS.Consumable:take_ownership('soul', {
-            pos = coordinate(8),
-            atlas = 'bunco_resprites_consumables'
+            pos = coordinate(1),
+            atlas = 'bunco_resprites_spectrals'
         })
 
         SMODS.Consumable:take_ownership('ceres', {
-            pos = coordinate(9),
-            atlas = 'bunco_resprites_consumables'
+            pos = coordinate(1),
+            atlas = 'bunco_resprites_planets'
         })
 
         SMODS.Consumable:take_ownership('mercury', {
-            pos = coordinate(10),
-            atlas = 'bunco_resprites_consumables'
+            pos = coordinate(2),
+            atlas = 'bunco_resprites_planets'
         })
 
         SMODS.Consumable:take_ownership('uranus', {
-            pos = coordinate(11),
-            atlas = 'bunco_resprites_consumables'
+            pos = coordinate(3),
+            atlas = 'bunco_resprites_planets'
         })
 
         SMODS.Consumable:take_ownership('pluto', {
-            pos = coordinate(12),
-            atlas = 'bunco_resprites_consumables'
+            pos = coordinate(4),
+            atlas = 'bunco_resprites_planets'
         })
 
         SMODS.Consumable:take_ownership('incantation', {
-            pos = coordinate(13),
-            atlas = 'bunco_resprites_consumables'
+            pos = coordinate(2),
+            atlas = 'bunco_resprites_spectrals'
         })
 
         SMODS.Consumable:take_ownership('black_hole', {
-            pos = coordinate(14),
-            atlas = 'bunco_resprites_consumables'
+            pos = coordinate(3),
+            atlas = 'bunco_resprites_spectrals'
         })
 
     end
 
+end
+
+if next(SMODS.find_mod("malverk")) then
+    AltTexture({
+        key = 'tarots_fixed_sprites',
+        set = 'Tarot',
+        path = 'Resprites/Tarots.png',
+        keys = {
+          'c_fool',
+          'c_lovers',
+          'c_chariot',
+          'c_wheel_of_fortune',
+          'c_tower',
+          'c_moon',
+          'c_world',
+        },
+        loc_txt = {
+          name = 'Tarot Fixes'
+        }
+    })
+    AltTexture({
+        key = 'planets_fixed_sprites',
+        set = 'Planet',
+        path = 'Resprites/Planets.png',
+        keys = {
+          'c_ceres',
+          'c_mercury',
+          'c_uranus',
+          'c_pluto',
+        },
+        loc_txt = {
+          name = 'Planet Fixes'
+        }
+    })
+    AltTexture({
+        key = 'spectrals_fixed_sprites',
+        set = 'Spectral',
+        path = 'Resprites/Spectrals.png',
+        keys = {
+          'c_soul',
+          'c_incantation',
+          'c_black_hole'
+        },
+        loc_txt = {
+          name = 'Spectral Fixes'
+        }
+    })
+    AltTexture({
+        key = 'jokers_fixed_sprites',
+        set = 'Joker',
+        path = 'Resprites/Jokers.png',
+        keys = {
+          'j_juggler',
+          'j_drunkard',
+          'j_acrobat',
+          'j_credit_card',
+          'j_troubadour',
+          'j_even_steven',
+          'j_odd_todd',
+          'j_fibonacci',
+          'j_drivers_license',
+          'j_gift',
+          'j_flash',
+          'j_ramen',
+          'j_selzer',
+          'j_scholar'
+        },
+        loc_txt = {
+          name = 'Joker Fixes'
+        }
+    })
+    
+    TexturePack({
+        key = 'bunc_fixed_sprites',
+        textures = {
+          'bunc_jokers_fixed_sprites',
+          'bunc_tarots_fixed_sprites',
+          'bunc_planets_fixed_sprites',
+          'bunc_spectrals_fixed_sprites',
+        },
+        loc_txt = {
+          name = 'Bunco Resprites',
+          text = {'Port of Bunco sprite fixes'}
+        }
+    })
 end
 
 -- Text icons
@@ -743,8 +834,8 @@ if config.gameplay_reworks then
             end
             return {key = 'c_bunc_wheel_of_fortune', vars = vars}
         end,
-        pos = config.fixed_sprites and coordinate(4) or nil,
-        atlas = config.fixed_sprites and 'bunco_resprites_consumables' or nil
+        pos = use_fixed_sprite_atlas() and coordinate(4) or nil,
+        atlas = use_fixed_sprite_atlas() and 'bunco_resprites_tarots' or nil
     })
 
     SMODS.Consumable:take_ownership('aura', {
