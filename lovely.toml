@@ -3403,11 +3403,48 @@ position = 'at'
 match_indent = true
 payload = '''if SMODS.DrawSteps[k]:check_conditions(self, layer) and not (self.draw_bypass and self.draw_bypass[k]) then SMODS.DrawSteps[k].func(self, layer) end'''
 
-# Locked tarots sprite
-# [[patches]]
-# [patches.pattern]
-# target = 'card.lua'
-# pattern = '''elseif self.config.center.consumeable and self.config.center.demo then'''
-# position = 'at'
-# match_indent = true
-# payload = '''elseif self.config.center.consumeable and (self.config.center.demo or (not self.config.center.unlocked and not self.params.bypass_discovery_center)) then '''
+# Fix Gameplan messing with hand size too much
+# Increasing hand size now only draws to hand if there is hand size to draw to
+[[patches]]
+[patches.pattern]
+target = 'cardarea.lua'
+pattern = '''local card_count = math.abs(delta)'''
+position = 'after'
+match_indent = true
+payload = '''card_count = math.min(card_count, math.max(0, self.config.card_limit - #self.cards))'''
+
+# Fix Gameplan messing with discards
+# Increasing hand size now only draws to hand if there is hand size to draw to
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''if math.abs(math.max(G.GAME.current_round.discards_left, mod)) == 0 *'''
+position = 'before'
+match_indent = true
+payload = '''
+if G.GAME.current_round.bunc_actual_discards_left and G.GAME.current_round.bunc_actual_discards_left <= 0 then
+    local new_mod = math.max(0, mod + G.GAME.current_round.bunc_actual_discards_left)
+    G.GAME.current_round.bunc_actual_discards_left = (G.GAME.current_round.bunc_actual_discards_left or G.GAME.current_round.discards_left) + mod
+    mod = new_mod
+else
+    G.GAME.current_round.bunc_actual_discards_left = (G.GAME.current_round.bunc_actual_discards_left or G.GAME.current_round.discards_left) + mod
+end
+'''
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+pattern = '''G.GAME.current_round.discards_left = math.max(0, G.GAME.round_resets.discards + G.GAME.round_bonus.discards)'''
+position = 'after'
+match_indent = true
+payload = '''
+G.GAME.current_round.bunc_actual_discards_left = G.GAME.current_round.discards_left
+'''
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = '''G.GAME.current_round.discards_left = math.max(0, G.GAME.round_resets.discards + G.GAME.round_bonus.discards)'''
+position = 'after'
+match_indent = true
+payload = '''
+G.GAME.current_round.bunc_actual_discards_left = G.GAME.current_round.discards_left
+'''
