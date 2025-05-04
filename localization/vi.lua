@@ -848,7 +848,7 @@ return { -- Translation by Shinosan
             j_bunc_registration_plate = {
                 ['name'] = 'Biển Số Xe',
                 ['text'] = {
-                    [1] = '#1#',
+                    [1] = '#1#, #2#, #3#, #4# và #5#',
                     [2] = 'có Chip và Nhân của mọi',
                     [3] = '{C:attention}tay poker{} đã chơi trong vòng đấu này',
                     [4] = '{s:0.8}Kết hợp sẽ thay đổi sau mỗi vòng'

@@ -848,7 +848,7 @@ return {
             j_bunc_registration_plate = {
                 ['name'] = 'Registration Plate',
                 ['text'] = {
-                    [1] = '#1#',
+                    [1] = '#1#, #2#, #3#, #4#, and #5#',
                     [2] = 'has the Chips and Mult of all',
                     [3] = '{C:attention}poker hands{} played this game',
                     [4] = '{s:0.8}Combination changes every round'

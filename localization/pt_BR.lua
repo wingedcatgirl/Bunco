@@ -699,7 +699,7 @@ return {
             j_bunc_registration_plate = {
                 ['name'] = 'Placa de Carro',
                 ['text'] = {
-                    [1] = '#1#',
+                    [1] = '#1#, #2#, #3#, #4# e #5#',
                     [2] = 'tem as Fichas e Multi de todas as',
                     [3] = '{C:attention}mãos de pôquer{} jogadas nesta tentativa',
                     [4] = '{s:0.8}A combinação muda a cada rodada'

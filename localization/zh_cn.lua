@@ -835,7 +835,7 @@ return { -- Translation by VisJoker
             j_bunc_registration_plate = {
                 ['name'] = '车牌',
                 ['text'] = {
-                    [1] = '#1#',
+                    [1] = '#1#, #2#, #3#, #4# 和 #5#',
                     [2] = '拥有本局游戏中所有打出的',
                     [3] = '{C:attention}扑克牌型{}的筹码和倍数',
                     [4] = '{s:0.8}组合每轮变化'

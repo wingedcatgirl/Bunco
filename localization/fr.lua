@@ -851,7 +851,7 @@ return {
             j_bunc_registration_plate = {
                 ['name'] = "Plaque d'immatriculation",
                 ['text'] = {
-                    [1] = '#1#',
+                    [1] = '#1#, #2#, #3#, #4# et #5#',
                     [2] = 'ont les Jetons et le Multi. de toutes',
                     [3] = 'les {C:attention}mains de poker{} jouée cette partie',
                     [4] = '{s:0.8}La combination change chaque manche'
