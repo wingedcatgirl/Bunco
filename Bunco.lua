@@ -448,19 +448,19 @@ SMODS.Consumable:take_ownership('pluto', {
     set_card_type_badge = function(self, card, badges)
         badges[1] = create_badge(config.fixed_badges and localize('k_planet') or localize('k_dwarf_planet'), get_type_colour(self or card.config, card), nil, 1.2)
     end
-})
+}, true)
 
 SMODS.Consumable:take_ownership('ceres', {
     set_card_type_badge = function(self, card, badges)
         badges[1] = create_badge(config.fixed_badges and localize('k_planet_q') or localize('k_dwarf_planet'), get_type_colour(self or card.config, card), nil, 1.2)
     end
-})
+}, true)
 
 SMODS.Consumable:take_ownership('eris', {
     set_card_type_badge = function(self, card, badges)
         badges[1] = create_badge(config.fixed_badges and localize('k_planet_q') or localize('k_dwarf_planet'), get_type_colour(self or card.config, card), nil, 1.2)
     end
-})
+}, true)
 
 -- Fixed sprites
 
@@ -488,139 +488,139 @@ if config.fixed_sprites then
         SMODS.Joker:take_ownership('juggler', {
             pos = coordinate(1),
             atlas = 'bunco_resprites_jokers'
-        })
+        }, true)
 
         SMODS.Joker:take_ownership('drunkard', {
             pos = coordinate(2),
             atlas = 'bunco_resprites_jokers'
-        })
+        }, true)
 
         SMODS.Joker:take_ownership('acrobat', {
             pos = coordinate(3),
             atlas = 'bunco_resprites_jokers'
-        })
+        }, true)
 
         SMODS.Joker:take_ownership('credit_card', {
             pos = coordinate(4),
             atlas = 'bunco_resprites_jokers'
-        })
+        }, true)
 
         SMODS.Joker:take_ownership('troubadour', {
             pos = coordinate(5),
             atlas = 'bunco_resprites_jokers'
-        })
+        }, true)
 
         SMODS.Joker:take_ownership('even_steven', {
             pos = coordinate(6),
             atlas = 'bunco_resprites_jokers'
-        })
+        }, true)
 
         SMODS.Joker:take_ownership('odd_todd', {
             pos = coordinate(7),
             atlas = 'bunco_resprites_jokers'
-        })
+        }, true)
 
         SMODS.Joker:take_ownership('fibonacci', {
             pos = coordinate(8),
             atlas = 'bunco_resprites_jokers'
-        })
+        }, true)
 
         SMODS.Joker:take_ownership('drivers_license', {
             pos = coordinate(9),
             atlas = 'bunco_resprites_jokers'
-        })
+        }, true)
 
         SMODS.Joker:take_ownership('gift', {
             pos = coordinate(10),
             atlas = 'bunco_resprites_jokers'
-        })
+        }, true)
 
         SMODS.Joker:take_ownership('flash', {
             pos = coordinate(11),
             atlas = 'bunco_resprites_jokers'
-        })
+        }, true)
 
         SMODS.Joker:take_ownership('ramen', {
             pos = coordinate(12),
             atlas = 'bunco_resprites_jokers'
-        })
+        }, true)
 
         SMODS.Joker:take_ownership('selzer', {
             pos = coordinate(13),
             atlas = 'bunco_resprites_jokers'
-        })
+        }, true)
 
         SMODS.Joker:take_ownership('scholar', {
             pos = coordinate(14),
             atlas = 'bunco_resprites_jokers'
-        })
+        }, true)
 
         -- Consumables
 
         SMODS.Consumable:take_ownership('fool', {
             pos = coordinate(1),
             atlas = 'bunco_resprites_tarots'
-        })
+        }, true)
 
         SMODS.Consumable:take_ownership('lovers', {
             pos = coordinate(2),
             atlas = 'bunco_resprites_tarots'
-        })
+        }, true)
 
         SMODS.Consumable:take_ownership('chariot', {
             pos = coordinate(3),
             atlas = 'bunco_resprites_tarots'
-        })
+        }, true)
 
         SMODS.Consumable:take_ownership('wheel_of_fortune', {
             pos = coordinate(4),
             atlas = 'bunco_resprites_tarots'
-        })
+        }, true)
 
         SMODS.Consumable:take_ownership('tower', {
             pos = coordinate(5),
             atlas = 'bunco_resprites_tarots'
-        })
+        }, true)
 
         SMODS.Consumable:take_ownership('moon', {
             pos = coordinate(6),
             atlas = 'bunco_resprites_tarots'
-        })
+        }, true)
 
         SMODS.Consumable:take_ownership('world', {
             pos = coordinate(7),
             atlas = 'bunco_resprites_tarots'
-        })
+        }, true)
 
         SMODS.Consumable:take_ownership('soul', {
             pos = coordinate(1),
             atlas = 'bunco_resprites_spectrals'
-        })
+        }, true)
 
         SMODS.Consumable:take_ownership('ceres', {
             pos = coordinate(1),
             atlas = 'bunco_resprites_planets'
-        })
+        }, true)
 
         SMODS.Consumable:take_ownership('mercury', {
             pos = coordinate(2),
             atlas = 'bunco_resprites_planets'
-        })
+        }, true)
 
         SMODS.Consumable:take_ownership('uranus', {
             pos = coordinate(3),
             atlas = 'bunco_resprites_planets'
-        })
+        }, true)
 
         SMODS.Consumable:take_ownership('pluto', {
             pos = coordinate(4),
             atlas = 'bunco_resprites_planets'
-        })
+        }, true)
 
         SMODS.Consumable:take_ownership('incantation', {
             pos = coordinate(2),
             atlas = 'bunco_resprites_spectrals'
-        })
+        }, true)
 
         SMODS.Consumable:take_ownership('black_hole', {
             pos = coordinate(3),
@@ -1105,7 +1105,7 @@ SMODS.Tag:take_ownership('double', {
             return {key = 'tag_bunc_double'}
         end
     end,
-})
+}, true)
 
 -- Joker creation setup
 
