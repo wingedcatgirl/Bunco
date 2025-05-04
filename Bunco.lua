@@ -1688,8 +1688,10 @@ create_joker({ -- Loan Shark
             unlock_card(self)
         end
     end,
-    add = function(self, card)
-        ease_dollars(card.ability.extra.dollars)
+    add = function(self, card, from_debuff)
+        if not from_debuff then
+            ease_dollars(card.ability.extra.dollars)
+        end
         card:set_cost()
     end
 })
