@@ -4004,7 +4004,9 @@ create_joker({ -- Stylophone
                 return 2^(pitch / 12)
             end
 
-            if other_card.config.center ~= G.P_CENTERS.m_stone then
+            if SMODS.has_no_suit(other_card) then
+                event({trigger = 'after', func = function() play_sound(instrument, 1.0, 2.0) return true end})
+            else
                 if other_card.base.suit == 'Spades' then
                     instrument = 'bunc_spade'
                 elseif other_card.base.suit == 'Clubs' then
@@ -4019,8 +4021,6 @@ create_joker({ -- Stylophone
                     instrument = 'bunc_halberd'
                 end
                 event({trigger = 'after', func = function() play_sound(instrument, calculate_pitch(other_card:get_id()), 2.0) return true end})
-            else
-                event({trigger = 'after', func = function() play_sound(instrument, 1.0, 2.0) return true end})
             end
         end
 
