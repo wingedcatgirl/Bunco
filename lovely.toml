@@ -1427,14 +1427,8 @@ position = 'before'
 match_indent = true
 payload = '''
 
-local challenge_card
-
 for i = 1, #G.P_LOCKED do
-    challenge_card = G.P_LOCKED[i]
-
-    if not challenge_card.unlocked and challenge_card.check_for_unlock and type(challenge_card.check_for_unlock) == 'function' then
-        challenge_card:check_for_unlock({type = 'win_challenge'})
-    end
+    check_for_unlock({type = 'win_challenge'})
 end
 
 '''
@@ -1466,16 +1460,9 @@ for k, v in pairs(G.playing_cards) do
 end
 
 if G.GAME.last_deck_size ~= deck_size then
-    local locked_card
     local difference = deck_size - G.GAME.last_deck_size
 
-    for i = 1, #G.P_LOCKED do
-        locked_card = G.P_LOCKED[i]
-
-        if not locked_card.unlocked and locked_card.check_for_unlock and type(locked_card.check_for_unlock) == 'function' then
-            locked_card:check_for_unlock({type = 'round_deck_size', round_deck_size_diff = difference})
-        end
-    end
+    check_for_unlock({type = 'round_deck_size', round_deck_size_diff = difference})
 end
 
 G.GAME.last_deck_size = deck_size
@@ -1508,7 +1495,7 @@ target = 'functions/state_events.lua'
 pattern = 'G.GAME.current_round.discards_left = math.max(0, G.GAME.round_resets.discards + G.GAME.round_bonus.discards)'
 position = 'before'
 match_indent = true
-payload = '''G.GAME.money_spend_this_round = 0'''
+payload = '''G.GAME.bunc_money_spend_this_round = 0'''
 
 # Blind defeat unlocking
 [[patches]]
@@ -1520,15 +1507,7 @@ match_indent = true
 payload = '''
 
 if not G.GAME.blind.disabled then
-    local locked_card
-
-    for i = 1, #G.P_LOCKED do
-        locked_card = G.P_LOCKED[i]
-
-        if not locked_card.unlocked and locked_card.check_for_unlock and type(locked_card.check_for_unlock) == 'function' then
-            locked_card:check_for_unlock({type = 'defeat_blind', blind = G.GAME.blind})
-        end
-    end
+    check_for_unlock({type = 'defeat_blind', blind = G.GAME.blind})
 end
 
 '''
@@ -1579,17 +1558,7 @@ match_indent = true
 payload = '''
 
 if to_big(mod) < to_big(0) then
-    G.GAME.money_spend_this_round = G.GAME.money_spend_this_round - mod
-
-    local locked_card
-
-    for i = 1, #G.P_LOCKED do
-        locked_card = G.P_LOCKED[i]
-
-        if not locked_card.unlocked and locked_card.check_for_unlock and type(locked_card.check_for_unlock) == 'function' then
-            locked_card:check_for_unlock({type = 'ante_down', ante = G.GAME.round_resets.ante})
-        end
-    end
+    check_for_unlock({type = 'ante_down', ante = G.GAME.round_resets.ante})
 end
 
 '''
@@ -1632,15 +1601,7 @@ payload = '''
 if used_tarot.edition then
     G.PROFILES[G.SETTINGS.profile].consumables_with_edition_used = (G.PROFILES[G.SETTINGS.profile].consumables_with_edition_used or 0) + 1
     if G.PROFILES[G.SETTINGS.profile].consumables_with_edition_used then
-        local locked_card
-
-        for i = 1, #G.P_LOCKED do
-            locked_card = G.P_LOCKED[i]
-
-            if not locked_card.unlocked and locked_card.check_for_unlock and type(locked_card.check_for_unlock) == 'function' then
-                locked_card:check_for_unlock({type = 'use_consumable_with_edition', used_total = G.PROFILES[G.SETTINGS.profile].consumables_with_edition_used})
-            end
-        end
+        check_for_unlock({type = 'use_consumable_with_edition', used_total = G.PROFILES[G.SETTINGS.profile].consumables_with_edition_used})
     end
 end
 
@@ -1666,15 +1627,7 @@ end
 if (not G.hand.highlighted) or (#G.hand.highlighted == 0) then unlock_all_flipped = false end
 
 if unlock_all_flipped and #G.hand.highlighted >= 5 then
-    local locked_card
-
-    for i = 1, #G.P_LOCKED do
-        locked_card = G.P_LOCKED[i]
-
-        if not locked_card.unlocked and locked_card.check_for_unlock and type(locked_card.check_for_unlock) == 'function' then
-            locked_card:check_for_unlock({type = 'play_all_flipped'})
-        end
-    end
+    check_for_unlock({type = 'play_all_flipped'})
 end
 
 '''
@@ -1715,15 +1668,7 @@ payload = '''
 
 G.PROFILES[G.SETTINGS.profile].skips_total = (G.PROFILES[G.SETTINGS.profile].skips_total or 0) + 1
 if G.PROFILES[G.SETTINGS.profile].skips_total then
-    local locked_card
-
-    for i = 1, #G.P_LOCKED do
-        locked_card = G.P_LOCKED[i]
-
-        if not locked_card.unlocked and locked_card.check_for_unlock and type(locked_card.check_for_unlock) == 'function' then
-            locked_card:check_for_unlock({type = 'blind_skipped', skips_total = G.PROFILES[G.SETTINGS.profile].skips_total})
-        end
-    end
+    check_for_unlock({type = 'blind_skipped', skips_total = G.PROFILES[G.SETTINGS.profile].skips_total})
 end
 
 '''
@@ -2619,15 +2564,7 @@ if G.GAME.used_vouchers['v_bunc_hedge_trimmer'] then
 
     G.PROFILES[G.SETTINGS.profile].hedge_trimmer_usage = (G.PROFILES[G.SETTINGS.profile].hedge_trimmer_usage or 0) + 1
 
-    local locked_card
-
-    for i = 1, #G.P_LOCKED do
-        locked_card = G.P_LOCKED[i]
-
-        if not locked_card.unlocked and locked_card.check_for_unlock and type(locked_card.check_for_unlock) == 'function' then
-            locked_card:check_for_unlock({type = 'hedge_trimmer_used', used_total = G.PROFILES[G.SETTINGS.profile].hedge_trimmer_usage})
-        end
-    end
+    check_for_unlock({type = 'hedge_trimmer_used', used_total = G.PROFILES[G.SETTINGS.profile].hedge_trimmer_usage})
 end
 
 '''
@@ -2925,15 +2862,7 @@ G.FUNCS.use_blind_card = function(e)
 
     G.PROFILES[G.SETTINGS.profile].blind_cards_used = (G.PROFILES[G.SETTINGS.profile].blind_cards_used or 0) + 1
     if G.PROFILES[G.SETTINGS.profile].blind_cards_used then
-        local locked_card
-
-        for i = 1, #G.P_LOCKED do
-            locked_card = G.P_LOCKED[i]
-
-            if not locked_card.unlocked and locked_card.check_for_unlock and type(locked_card.check_for_unlock) == 'function' then
-                locked_card:check_for_unlock({type = 'use_blind_card', blinds_total = G.PROFILES[G.SETTINGS.profile].blind_cards_used})
-            end
-        end
+        check_for_unlock({type = 'use_blind_card', blinds_total = G.PROFILES[G.SETTINGS.profile].blind_cards_used})
     end
 
     G.FUNCS.end_consumeable(nil, 0.2)
