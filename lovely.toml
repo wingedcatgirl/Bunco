@@ -303,6 +303,16 @@ or string.find(assembled_string, localize('bunc_Halberds', 'suits_plural')) then
     assembled_string = add_symbol(assembled_string, '✠')
 end
 
+if string.find(assembled_string, localize('paperback_Crowns', 'suits_singular'))
+or string.find(assembled_string, localize('paperback_Crowns', 'suits_plural')) then
+    assembled_string = add_symbol(assembled_string, '♛')
+end
+
+if string.find(assembled_string, localize('paperback_Stars', 'suits_singular'))
+or string.find(assembled_string, localize('paperback_Stars', 'suits_plural')) then
+    assembled_string = add_symbol(assembled_string, '★')
+end
+
 '''
 
 # Luchador Rework 1/2
@@ -2258,7 +2268,7 @@ end
 
 '''
 
-# Edition tags 1/5
+# Edition tags 1/4
 [[patches]]
 [patches.pattern]
 target = 'functions/state_events.lua'
