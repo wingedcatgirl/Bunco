@@ -929,7 +929,7 @@ BUNCOMOD.funcs.ease_dollars = function(mod)
     end
 
     if G.jokers ~= nil then --Jokers that affect money income
-        for _, v in SMODS.find_card('j_bunc_fiendish') do
+        for _, v in ipairs(SMODS.find_card('j_bunc_fiendish')) do
             if not v.debuff and to_big(mod) > to_big(0) then
                 if pseudorandom('fiendish'..G.SEED) < G.GAME.probabilities.normal / v.ability.extra.odds then
                     mod = to_big(1)
@@ -954,7 +954,7 @@ BUNCOMOD.funcs.ease_dollars = function(mod)
                 end
             end
         end
-        for _, v in SMODS.find_card('j_bunc_bounty_hunter') do
+        for _, v in ipairs(SMODS.find_card('j_bunc_bounty_hunter')) do
             if not v.debuff and to_big(mod) > to_big(0) then
                 v:calculate_joker({get_money = true})
                 mod = to_big(mod) - to_big(1)
