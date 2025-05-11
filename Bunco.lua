@@ -1178,7 +1178,7 @@ local function create_joker(joker)
 
     -- Joker creation
 
-    if not (joker.purist == false and config.purist_mode) then SMODS.Joker{
+    SMODS.Joker{
         name = joker.name,
         key = key,
 
@@ -1228,8 +1228,7 @@ local function create_joker(joker)
         in_pool = joker.custom_in_pool or pool,
 
         effect = joker.effect
-        }
-    end
+    }
     if joker.drawsteps then
         for index, drawstep in ipairs(joker.drawsteps) do
             drawstep.key = key..'_'..index
@@ -1774,7 +1773,6 @@ create_joker({ -- Basement
     rarity = 'Rare', cost = 8,
     blueprint = true, eternal = true,
     unlocked = true,
-    purist = false,
     calculate = function(self, card, context)
         if context.end_of_round and G.GAME.blind.boss and not context.other_card then
             if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
@@ -1833,7 +1831,6 @@ create_joker({ -- Knight
             unlock_card(self)
         end
     end,
-    purist = false,
     calculate = function(self, card, context)
         if context.setting_blind and not card.getting_sliced and not context.blueprint then
             card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.bonus
@@ -1901,7 +1898,6 @@ create_joker({ -- JMJB
             unlock_card(self)
         end
     end,
-    purist = false,
     calculate = function(self, card, context)
         if context.open_booster and context.card.ability.name then
             if (context.open_booster and context.card.ability.name == 'Standard Pack' or
@@ -2014,8 +2010,7 @@ create_joker({ -- Fiendish
             self.challenge_bypass = true
             unlock_card(self)
         end
-    end,
-    purist = false
+    end
 })
 
 create_joker({ -- Carnival
@@ -2040,7 +2035,6 @@ create_joker({ -- Carnival
             unlock_card(self)
         end
     end,
-    purist = false,
     calculate = function(self, card, context)
         if context.end_of_round and G.GAME.blind.boss and not context.other_card and not context.blueprint then
             if G.GAME.round_resets.ante > card.ability.extra.ante then
