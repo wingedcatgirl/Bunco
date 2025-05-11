@@ -1,0 +1,18 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 10
+
+# Money gain (Talisman skipping is on)
+[[patches]]
+[patches.pattern]
+target = 'main.lua'
+pattern = 'mod = mod or 0'
+position = 'after'
+match_indent = true
+payload = '''
+
+    mod = BUNCOMOD.funcs.ease_dollars(mod)
+    if to_big(mod) == to_big(0) then return end
+
+'''

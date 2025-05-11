@@ -3442,7 +3442,7 @@ create_joker({ -- Bounty Hunter
     unlocked = false,
     check_for_unlock = function(self, args)
         if args.type == 'money' then
-            if G.GAME.dollars < to_big(self.config.extra.unlock) then
+            if to_big(G.GAME.dollars) < to_big(self.config.extra.unlock) then
                 unlock_card(self)
             end
         end
