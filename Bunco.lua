@@ -4010,7 +4010,7 @@ create_joker({ -- Stylophone
 
         if context.individual and context.cardarea == G.play then
             play_stylophone(context.other_card)
-            if context.other_card.config.center ~= G.P_CENTERS.m_stone then
+            if not SMODS.has_no_rank(context.other_card) then
                 return {
                     mult = context.other_card:get_id() * card.ability.extra.x,
                     card = card
