@@ -929,44 +929,42 @@ BUNCOMOD.funcs.ease_dollars = function(mod)
     end
 
     if G.jokers ~= nil then --Jokers that affect money income
-        for _, v in ipairs(G.jokers.cards) do
-            if v.config.center.key == 'j_bunc_fiendish' and not v.debuff then
-                if to_big(mod) > to_big(0) then
-                    if pseudorandom('fiendish'..G.SEED) < G.GAME.probabilities.normal / v.ability.extra.odds then
-                        mod = to_big(1)
-                        local message = to_number(mod)
-                        G.E_MANAGER:add_event(Event{func = function()
-                            card_eval_status_text(
-                            v,
-                            'extra',
-                            nil, nil, nil,
-                            {message = '$'..(message or '1'), colour = G.C.RED, instant = true})
-                        return true end})
-                    else
-                        mod = to_big(mod) * to_big(2)
-                        local message = to_number(mod)
-                        G.E_MANAGER:add_event(Event{func = function()
-                            card_eval_status_text(
-                            v,
-                            'extra',
-                            nil, nil, nil,
-                            {message = '$'..message, colour = G.C.ORANGE, instant = true})
-                        return true end})
-                    end
-                end
-            end
-            if v.config.center.key == 'j_bunc_bounty_hunter' and not v.debuff then
-                if to_big(mod) > to_big(0) then
-                    v:calculate_joker({get_money = true})
-                    mod = to_big(mod) - to_big(1)
+        for _, v in SMODS.find_card('j_bunc_fiendish') do
+            if not v.debuff and to_big(mod) > to_big(0) then
+                if pseudorandom('fiendish'..G.SEED) < G.GAME.probabilities.normal / v.ability.extra.odds then
+                    mod = to_big(1)
+                    local message = to_number(mod)
                     G.E_MANAGER:add_event(Event{func = function()
                         card_eval_status_text(
                         v,
                         'extra',
                         nil, nil, nil,
-                        {message = G.localization.misc.dictionary.bunc_robbed, colour = G.C.ORANGE, instant = true})
+                        {message = '$'..(message or '1'), colour = G.C.RED, instant = true})
+                    return true end})
+                else
+                    mod = to_big(mod) * to_big(2)
+                    local message = to_number(mod)
+                    G.E_MANAGER:add_event(Event{func = function()
+                        card_eval_status_text(
+                        v,
+                        'extra',
+                        nil, nil, nil,
+                        {message = '$'..message, colour = G.C.ORANGE, instant = true})
                     return true end})
                 end
+            end
+        end
+        for _, v in SMODS.find_card('j_bunc_bounty_hunter') do
+            if not v.debuff and to_big(mod) > to_big(0) then
+                v:calculate_joker({get_money = true})
+                mod = to_big(mod) - to_big(1)
+                G.E_MANAGER:add_event(Event{func = function()
+                    card_eval_status_text(
+                    v,
+                    'extra',
+                    nil, nil, nil,
+                    {message = G.localization.misc.dictionary.bunc_robbed, colour = G.C.ORANGE, instant = true})
+                return true end})
             end
         end
     end
