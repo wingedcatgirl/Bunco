@@ -88,10 +88,6 @@ BUNCOMOD.funcs.exotic_in_pool = function()
         end
     end
 
-    if spectrum_played and (SMODS.Mods["Bunco"] or {}).can_load then
-        if not exotic_in_pool() then enable_exotics() end
-    end
-
     return spectrum_played
 end
 
